@@ -3,12 +3,14 @@
 	import KeyFeatures from '$lib/Home/KeyFeatures.svelte';
 	import AdvancedFilter from '$lib/Home/AdvancedFilter.svelte';
 	import BagFeature from '$lib/Home/BagFeature.svelte';
+	import Credits from '$lib/Home/Credits.svelte';
 </script>
 
 <Hero />
 <KeyFeatures />
 <AdvancedFilter />
 <BagFeature />
+<Credits />
 <svelte:head>
 	<title>Discover, Explore, and Find the Perfect NPM Packages</title>
 	<meta

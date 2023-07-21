@@ -1,60 +1,37 @@
 <script lang="ts">
 	import {
 		Button,
-		Badge,
 		Progressbar,
 		Indicator,
 		Listgroup,
 		ListgroupItem,
-		Toast,
 		Tooltip,
 		Toggle
 	} from 'flowbite-svelte';
-	import { formatDistance } from 'date-fns';
-	import { slide } from 'svelte/transition';
-	import { BagSolid, CheckCircleSolid, EyeSolid, LinkSolid } from 'flowbite-svelte-icons';
-	import { bagStore } from '$lib/stores/bag';
-	import CopyToClipboard from '../Shared/CopyToClipboard.svelte';
+	import { EyeSolid } from 'flowbite-svelte-icons';
+	import PackageDetails from './PackageDetails.svelte';
+	import Links from '$lib/Shared/Links.svelte';
+	import LastUpdated from '$lib/Shared/LastUpdated.svelte';
+	import AddToBag from '$lib/Shared/AddToBag.svelte';
+	import Commands from '$lib/Shared/Commands.svelte';
+	import Toastr from '$lib/Shared/Toastr.svelte';
 
 	export let payload: Payload;
 	export let result: SearchResult;
 	let placement: string | null = null;
 	let toggledIndex: number | null = null;
 	let loading = false;
-	let isToastOpen = false;
 	let showLinks = false;
-	let toastMessage = '';
-	const packageManagers = ['yarn add', 'npm install', 'pnpm install'];
+	let selectedPackage: Package;
+	let isDetailsOpen: boolean = false;
 
-	const lastUpdatedDuration = (value: string) => formatDistance(new Date(value), new Date());
 	const toggleMenu = (index: any) => {
 		toggledIndex = index;
 	};
 	const displayText = (e: any) => {
 		placement = e?.target?.id.replace('placement-', '').replaceAll('_', ' ');
 	};
-	const copyCommand = (packageDetails: any) => {
-		const val: string = `${packageDetails.package.name}@${packageDetails.package.version}`;
-		const app = new CopyToClipboard({
-			target: document.getElementById('clipboard')!,
-			props: { val }
-		});
-		app.$destroy();
-		console.log('copied!');
-		showToast('Command copied to clipboard!');
-	};
-	const addToBag = (packageDetails: any) => {
-		bagStore.add(packageDetails);
-		console.log('added to bag');
-		showToast('Package added to bag!');
-	};
-	const showToast = (message: string) => {
-		toastMessage = message;
-		isToastOpen = true;
-		setTimeout(() => {
-			isToastOpen = false;
-		}, 3000);
-	};
+
 	const loadMore = async () => {
 		loading = true;
 		let queryParams = `text=${payload.keyword}`;
@@ -74,14 +51,23 @@
 		loading = false;
 		result.objects = result.objects.concat(data.objects);
 	};
+
+	const togglePackageDetails = (row: Package) => {
+		isDetailsOpen = false;
+		setTimeout(() => {
+			isDetailsOpen = true;
+		}, 100);
+		selectedPackage = row;
+	};
 </script>
 
 <div id="clipboard" />
 
-<Toast transition={slide} position="top-right" class="fixed top-20 z-10 mb-4" open={isToastOpen}>
-	<CheckCircleSolid size="lg" slot="icon" />
-	<span class="dark:text-gray-300">{toastMessage}</span>
-</Toast>
+{#if isDetailsOpen}
+	<PackageDetails {selectedPackage} on:closed={() => (isDetailsOpen = false)} />
+{/if}
+
+<Toastr />
 {#if result}
 	<div class="flex gap-2 justify-between items-center pt-4">
 		<Toggle
@@ -127,7 +113,7 @@
 									>
 								</Indicator>
 							</div>
-							<span>Last updated: {lastUpdatedDuration(row.package.date)} ago</span>
+							<LastUpdated value={row.package.date} />
 						</div>
 						<div
 							class="{toggledIndex === i
@@ -135,27 +121,18 @@
 								: 'md:hidden'} flex md:absolute inset-0 z-10 gap-2 justify-between items-center md:p-4 md:bg-gray-800 dark:bg-gray-800 rounded-lg"
 						>
 							<div class="hidden gap-2 items-center px-4 md:flex">
-								{#each packageManagers as manager}
-									<Button color="dark" size="sm" light on:click={() => copyCommand(row)}>
-										<span class="text-xs">{manager} {row.package.name}@{row.package.version}</span
-										></Button
-									>
-								{/each}
+								<Commands row={row.package} />
 							</div>
 							<div class="grid grid-cols-2 gap-2">
 								<Button
 									class="!p-2"
 									id="placement-view"
-									href={row.package.links?.homepage}
-									target="_blank"
+									on:click|once={() => togglePackageDetails(row.package)}
 								>
 									<EyeSolid size="sm" />
 									<span class="ml-1 md:hidden">View</span>
 								</Button>
-								<Button class="!p-2" id="placement-add_to_bag" on:click|once={() => addToBag(row)}>
-									<BagSolid size="sm" />
-									<span class="ml-1 md:hidden">Add to bag</span>
-								</Button>
+								<AddToBag row={row.package} />
 								<Tooltip
 									triggeredBy="[id^='placement-']"
 									placement="bottom"
@@ -169,28 +146,11 @@
 					</div>
 				</div>
 				{#if showLinks}
-					<div class="flex gap-2 justify-end items-center my-2 w-full md:my-0">
-						<Badge href={row.package.links?.homepage} color="indigo" target="_blank">
-							<LinkSolid size="sm" class="mr-1 w-3" />
-							Homepage
-						</Badge>
-						<Badge href={row.package.links?.repository} color="indigo" target="_blank">
-							<LinkSolid size="sm" class="mr-1 w-3" />
-							Repository</Badge
-						>
-						<Badge href={row.package.links?.bugs} color="indigo" target="_blank">
-							<LinkSolid size="sm" class="mr-1 w-3" />
-							Bugs</Badge
-						>
-						<Badge href={row.package.links?.npm} color="indigo" target="_blank">
-							<LinkSolid size="sm" class="mr-1 w-3" />
-							NPM</Badge
-						>
-					</div>
+					<Links row={row.package} />
 				{/if}
 			</ListgroupItem>
 		{/each}
-		{#if result.total > 20}
+		{#if result.total > 20 && !loading}
 			<Button
 				on:click={loadMore}
 				class="flex justify-center items-center p-3 w-full text-sm font-medium bg-gray-50 rounded-t-none rounded-b-lg text-primary-600 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-primary-500"

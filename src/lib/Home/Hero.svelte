@@ -1,6 +1,5 @@
 <script>
 	import DeviceMockupDesktop from '$lib/Home/DeviceMockupDesktop.svelte';
-
 	import { Button } from 'flowbite-svelte';
 	import { SearchOutline } from 'flowbite-svelte-icons';
 </script>

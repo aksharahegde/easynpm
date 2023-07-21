@@ -4,16 +4,18 @@
 
 	import { bagStore } from '$lib/stores/bag';
 	import { A, Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+	import { notifications } from '$lib/stores/notifications';
 
 	const { bag } = bagStore;
 	const copyCommand = (manager: string) => {
-        const packages = $bag.map((item) => `${item.package.name}@${item.package.version}`).join(' ');
+		const packages = $bag.map((item) => `${item.name}@${item.version}`).join(' ');
 		const val: string = `${manager} ${packages}`;
 		const app = new CopyToClipboard({
 			target: document.getElementById('clipboard')!,
 			props: { val }
 		});
 		app.$destroy();
+		notifications.success('Copied to clipboard', 1000);
 	};
 </script>
 
@@ -35,14 +37,14 @@
 	class="w-full max-w-sm rounded divide-y divide-gray-100 shadow dark:bg-gray-800 dark:divide-gray-700"
 >
 	<div slot="header" class="flex justify-between px-4 py-2 text-sm font-semibold">
-        Bag
-        {#if $bag.length}
-        <TrashBinSolid size="sm" class="text-base cursor-pointer" on:click={() => bagStore.clear()} />
-        {/if}
-    </div>
+		Bag
+		{#if $bag.length}
+			<TrashBinSolid size="sm" class="text-base cursor-pointer" on:click={() => bagStore.clear()} />
+		{/if}
+	</div>
 	{#each $bag as item}
 		<DropdownItem class="flex space-x-4 cursor-default">
-			{item.package.name} @ {item.package.version}
+			{item.name} @ {item.version}
 		</DropdownItem>
 	{/each}
 	{#if !$bag.length}

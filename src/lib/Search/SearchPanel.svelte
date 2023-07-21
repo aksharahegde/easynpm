@@ -81,15 +81,19 @@
 
 <div class="gap-4">
 	<div class="flex gap-4 items-center">
-		<Search size="lg" on:input={fetchSearchResults} class="md:py-3" placeholder="Start typing a package name" />
+		<Search
+			size="lg"
+			on:input={fetchSearchResults}
+			class="md:py-3"
+			placeholder="Start typing a package name"
+		/>
 		<Button
 			color="primary"
 			class="!p-2.5 relative"
 			size="lg"
 			on:click={() => (showAdvancedFilters = !showAdvancedFilters)}
 		>
-
-			<CogOutline/>
+			<CogOutline />
 			<Indicator color="dark" border size="xl" placement="top-right">
 				<span class="text-xs font-bold text-white">{appliedFilterCount}</span>
 			</Indicator>
@@ -117,7 +121,11 @@
 					</div>
 				</div>
 				<div class="flex gap-2 justify-end mt-4">
-					<Button color="dark" on:click={clearFilters} class="mr-2 dark:text-primary-700 dark:hover:text-primary-600">
+					<Button
+						color="dark"
+						on:click={clearFilters}
+						class="mr-2 dark:text-primary-700 dark:hover:text-primary-600"
+					>
 						<CloseSolid size="xs" class="mr-2" />
 						Clear & Close
 					</Button>

@@ -13,7 +13,7 @@
 		<div class="gap-6 justify-center text-center md:flex md:text-left lg:items-center lg:gap-16">
 			<div class="order-last mb-6 space-y-6 md:mb-0 md:w-6/12 lg:w-6/12">
 				<h1 class="text-3xl font-bold text-gray-900 md:text-4xl dark:text-white">
-					One-click <span class="text-primary dark:text-sky-300">Copy / Bag</span>
+					One-click <span class="text-primary-600">Copy / Bag</span>
 				</h1>
 				<p class="text-lg text-gray-600 dark:text-gray-300">
 					Copy the installation command to your clipboard <br class="hidden md:block"/> or add to your bag with one click.
