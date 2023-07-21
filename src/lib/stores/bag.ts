@@ -10,6 +10,10 @@ class BagStore {
 		});
 	}
 
+	clear() {
+		this.bag.update(() => []);
+	}
+
 	get bagData() {
 		return derived([this.bag], ([item]) => {
 			return this.bag.update((items) => {
