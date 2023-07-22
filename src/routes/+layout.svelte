@@ -1,8 +1,7 @@
 <script lang="ts">
 	import '../app.css';
-	import { DarkMode } from 'flowbite-svelte';
+	import { DarkMode, Img } from 'flowbite-svelte';
 	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
-	import { SearchSolid } from 'flowbite-svelte-icons';
 	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink } from 'flowbite-svelte'
 	import { page } from '$app/stores';
 	import Bag from '$lib/Shared/Bag.svelte';
@@ -23,16 +22,7 @@
 		navClass="px-2 sm:px-4 py-2.5 sticky w-full z-20 top-0 left-0 border-b bg-white dark:bg-gray-800 dark:border-gray-700"
 	>
 		<NavBrand href="/" class="relative gap-4">
-			<span class="self-center text-xl font-semibold whitespace-nowrap text-primary-600">
-				Easy
-			</span>
-			<SearchSolid
-				size="sm"
-				class="absolute top-1/2 left-1/2 opacity-40 -translate-x-1/2 -translate-y-1/2"
-			/>
-			<span class="self-center text-xl font-semibold whitespace-nowrap text-primary-600">
-				NPM
-			</span>
+			<Img src="/logo.svg" alt="Easy NPM Logo" size="w-12"/>
 		</NavBrand>
 		<div class="flex items-center space-x-4 md:order-2">
 			<Bag />
