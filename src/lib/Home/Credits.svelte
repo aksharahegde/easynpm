@@ -1,10 +1,7 @@
 <section class="py-10 bg-gray-50 dark:bg-gray-900 sm:py-16 lg:py-24">
-
 	<div class="container relative z-[1] m-auto px-6 md:px-12">
 		<div class="m-auto text-center md:w-8/12 lg:w-6/12">
-			<h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
-				<span class="text-primary-600">Tech stack</span> used
-			</h2>
+			<h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">Credits</h2>
 		</div>
 		<div class="m-auto mt-16 md:w-11/12 lg:w-8/12 xl:w-7/12">
 			<div class="flex flex-wrap gap-6 justify-center">
