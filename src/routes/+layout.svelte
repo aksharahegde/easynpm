@@ -40,6 +40,7 @@
 <Footer class="bg-gray-50 border-t border-gray-300 dark:border-gray-600 dark:bg-gray-900">
 	<FooterCopyright href="/" by="Easy NPM" year={new Date().getFullYear()} />
 	<FooterLinkGroup ulClass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+	  <FooterLink href="https://github.com/aksharahegde/easynpm" target="_blank">GitHub</FooterLink>
 	  <FooterLink href="https://aksharahegde.xyz" target="_blank">Developed by <span class="font-semibold text-primary-600">Akshara Hegde</span></FooterLink>
 	</FooterLinkGroup>
   </Footer>
