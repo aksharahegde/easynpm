@@ -39,7 +39,7 @@
 	<div slot="header" class="flex justify-between px-4 py-2 text-sm font-semibold">
 		Bag
 		{#if $bag.length}
-			<TrashBinSolid size="sm" class="text-base cursor-pointer" on:click={() => bagStore.clear()} />
+			<TrashBinSolid size="sm" class="text-base cursor-pointer hover:text-red-500" on:click={() => bagStore.clear()} />
 		{/if}
 	</div>
 	{#each $bag as item}
@@ -64,8 +64,9 @@
 			</div>
 		{:else}
 			<Button
+				outline
 				size="sm"
-				color="dark"
+				color="primary"
 				class="inline-flex items-center cursor-pointer"
 				on:click={() => copyCommand('yarn add')}
 			>
@@ -73,8 +74,9 @@
 				<span> Yarn </span>
 			</Button>
 			<Button
+				outline
 				size="sm"
-				color="dark"
+				color="primary"
 				class="inline-flex items-center cursor-pointer"
 				on:click={() => copyCommand('npm install')}
 			>

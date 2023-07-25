@@ -24,6 +24,7 @@
 	let showLinks = false;
 	let selectedPackage: Package;
 	let isDetailsOpen: boolean = false;
+	let offset: number = 20;
 
 	const toggleMenu = (index: any) => {
 		toggledIndex = index;
@@ -45,11 +46,16 @@
 			queryParams += `&maintenance=${payload.maintenance / 100}`;
 		}
 
+		if (offset > 0) {
+			queryParams += `&from=${offset}`;
+		}
+
 		let url = `https://registry.npmjs.com/-/v1/search?${queryParams}`;
 		const res = await fetch(url);
 		const data = await res.json();
 		loading = false;
 		result.objects = result.objects.concat(data.objects);
+		offset += data.objects.length;
 	};
 
 	const togglePackageDetails = (row: Package) => {
@@ -118,7 +124,7 @@
 						<div
 							class="{toggledIndex === i
 								? 'md:flex'
-								: 'md:hidden'} flex md:absolute inset-0 z-10 gap-2 justify-between items-center md:p-4 md:bg-gray-800 dark:bg-gray-800 rounded-lg"
+								: 'md:hidden'} flex md:absolute left-1/4 top-0 bottom-0 right-0 z-10 gap-2 justify-between items-center md:p-4 md:bg-gray-800 dark:bg-gray-800 rounded-lg"
 						>
 							<div class="hidden gap-2 items-center px-4 md:flex">
 								<Commands row={row.package} />

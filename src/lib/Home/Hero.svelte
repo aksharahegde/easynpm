@@ -26,17 +26,7 @@
 			</a>
 		</div>
 		<div class="flex justify-center mx-auto">
-			<a
-				href="https://www.producthunt.com/posts/easynpm?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-easynpm"
-				target="_blank"
-				><img
-					src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=405957&theme=neutral"
-					alt="EasyNPM - Search&#0032;&#0038;&#0032;install&#0032;command&#0032;with&#0032;one&#0045;click&#0032;for&#0032;npm&#0032;packages | Product Hunt"
-					style="width: 250px; height: 54px;"
-					width="250"
-					height="54"
-				/></a
-			>
+			<a href="https://www.producthunt.com/posts/easynpm?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-easynpm" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=405957&theme=dark" alt="EasyNPM - Search&#0032;&#0038;&#0032;install&#0032;command&#0032;with&#0032;one&#0045;click&#0032;for&#0032;npm&#0032;packages | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 		</div>
 	</div>
 	<DeviceMockupDesktop />
