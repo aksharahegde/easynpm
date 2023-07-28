@@ -99,10 +99,10 @@
 			>
 				<div class="flex relative flex-col gap-2 justify-between w-full md:flex-row">
 					<div class="w-full md:w-3/4">
-						<div class="flex gap-1 items-center">
+						<button class="flex gap-1 items-center" on:click|once={() => togglePackageDetails(row.package)}>
 							<span class="text-lg font-semibold text-primary-600">{row.package.name}</span>
 							<span class="text-xs dark:text-gray-300">v{row.package.version}</span>
-						</div>
+						</button>
 						{#if row.package.description}
 							<p class="mt-2 font-normal text-gray-500 dark:text-gray-300 md:mt-0">
 								{row.package.description}
