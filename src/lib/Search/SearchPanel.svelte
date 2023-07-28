@@ -150,7 +150,7 @@
 		<SearchResult {result} {payload} />
 	{:else}
 		<div
-			class="flex overflow-hidden relative gap-6 items-center p-4 mt-4 w-full text-gray-500 rounded-lg border border-gray-200 divide-gray-200 shadow-md fbg-white dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 dark:divide-gray-700 sm:p-6"
+			class="flex overflow-hidden relative flex-col gap-6 items-center p-4 mt-4 w-full text-gray-500 rounded-lg border border-gray-200 divide-gray-200 shadow-md md:flex-row fbg-white dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 dark:divide-gray-700 sm:p-6"
 		>
 			<svg class="mb-2 w-24 text-gray-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 				<path
@@ -160,16 +160,16 @@
 			</svg>
 			<div>
 				<h5
-					class="mb-2 text-2xl font-semibold tracking-tight text-left text-gray-900 dark:text-gray-400"
+					class="mb-2 text-2xl font-semibold tracking-tight text-center text-gray-900 md:text-left dark:text-gray-400"
 				>
 					Start searching..
 				</h5>
-				<p class="mb-3 font-normal text-left text-gray-500 dark:text-gray-400">
+				<p class="mb-3 font-normal text-center text-gray-500 md:text-left dark:text-gray-400">
 					Please enter a package name to get started.
 				</p>
 			</div>
 			<svg
-				class="absolute right-5 w-96 text-gray-700"
+				class="absolute -right-6 -bottom-6 w-24 text-gray-700 md:bottom-0 md:right-5 md:w-96"
 				viewBox="0 0 24 24"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
