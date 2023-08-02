@@ -21,7 +21,7 @@
 
 {#each packageManagers as manager}
 	<Button color="dark" outline size="sm" light on:click={() => copyCommand()}>
-		<span class="text-xs"
+		<span class="text-xs text-gray-300"
 			>{manager}
 			{#if !short}
 				{row.name}@{row.version}
