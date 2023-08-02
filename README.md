@@ -1,38 +1,34 @@
-# create-svelte
+<a href="https://easynpm.netlify.app/?ref=github" target="_blank"><img src="https://easynpm.netlify.app/logo.svg" style="width: 100px;" width="100" height="100" /></a>
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+# EasyNPM
+### Search & install command with one-click for npm packages
 
-## Creating a project
+A platform where developers can easily search for nodejs packages and take a glance at details without leaving the page. One-click copy option for popular package managers like npm, yarn and pnpm.
 
-If you're seeing this, you've probably already done this step. Congrats!
+[Website](https://easynpm.netlify.app/)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+<a href="https://www.producthunt.com/posts/easynpm?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-easynpm" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=405957&theme=neutral" alt="EasyNPM - Search&#0032;&#0038;&#0032;install&#0032;command&#0032;with&#0032;one&#0045;click&#0032;for&#0032;npm&#0032;packages | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Screenshots
+### Search results
+<img src="https://easynpm.netlify.app/search_result_dark.png" />
+
+### Advanced filters
+<img src="https://easynpm.netlify.app/advanced_filter.png" />
+
+### One-click Copy / Bag
+Copy the installation command to your clipboard or add to your bag with one click.
+
+<img src="https://easynpm.netlify.app/bag_dark.png" />
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Install dependencies with `yarn install` and run server with,
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+yarn dev
 ```
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
+You can preview the production build with `yarn build && yarn preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
