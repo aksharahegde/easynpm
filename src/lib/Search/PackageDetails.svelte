@@ -19,6 +19,7 @@
 	};
 	onMount(() => {
 		fetchDetails();
+		history.pushState('', selectedPackage.name, `/${selectedPackage.name}`);
 	});
 	async function fetchDetails() {
 		loading = true;
@@ -31,6 +32,7 @@
 	const dispatch = createEventDispatcher();
 	const drawerClosed = () => {
 		console.log('closed');
+		history.back()
 		dispatch('closed', {
 			text: 'Closed!'
 		});
@@ -49,7 +51,7 @@
 		{#if result && !loading}
 			<div class="hidden flex-wrap gap-4 items-center py-2 text-left md:flex">
 				<AddToBag row={selectedPackage} />
-				<Commands row={selectedPackage} short={true} />
+				<Commands row={selectedPackage} />
 			</div>
 		{/if}
 

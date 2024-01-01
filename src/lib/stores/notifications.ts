@@ -1,7 +1,5 @@
 import { writable, derived } from 'svelte/store';
 
-const TIMEOUT = 3000;
-
 function createNotificationStore() {
 	const _notifications: any = writable([]);
 
@@ -10,8 +8,6 @@ function createNotificationStore() {
             return [...state, { id: id(), type, message, timeout }];
         });
 	}
-
-	let timers = [];
 
 	const notifications = derived(_notifications, ($_notifications: any, set) => {
 		set($_notifications);

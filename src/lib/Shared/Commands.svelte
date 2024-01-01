@@ -1,31 +1,32 @@
 <script lang="ts">
-	import { Button } from 'flowbite-svelte';
+	import { Button, Toggle } from 'flowbite-svelte';
 	import { notifications } from '$lib/stores/notifications';
 	import CopyToClipboard from '../Shared/CopyToClipboard.svelte';
 
-	const packageManagers = ['yarn add', 'npm install', 'pnpm install'];
-
+	const packageManagers = ['yarn', 'npm', 'pnpm', 'bun'];
+	const packageCommands: any = {
+		yarn: 'add',
+		bun: 'add',
+		npm: 'install',
+		pnpm: 'install'
+	}
 	export let row: Package;
-	export let short: boolean = false;
+	let isDevDependancy: boolean = false;
 
-	const copyCommand = () => {
-		const val: string = `${row.name}@${row.version}`;
+	const copyCommand = (manager: string) => {
+		const val: string = `${manager} ${packageCommands[manager]}${isDevDependancy ? ' -D' : ''} ${row.name}@${row.version}`;
 		const app = new CopyToClipboard({
 			target: document.getElementById('clipboard')!,
 			props: { val }
 		});
 		app.$destroy();
-		notifications.success('Copied to clipboard', 1000);
+		notifications.success(`${val} copied to clipboard`, 1000);
 	};
 </script>
 
+<Toggle color="orange" bind:checked={isDevDependancy} class="mr-4">Dev dependancy</Toggle>
 {#each packageManagers as manager}
-	<Button color="dark" outline size="sm" light on:click={() => copyCommand()}>
-		<span class="text-xs text-gray-300"
-			>{manager}
-			{#if !short}
-				{row.name}@{row.version}
-			{/if}
-		</span></Button
-	>
+	<Button color="dark" outline size="sm" light on:click={() => copyCommand(manager)}>
+		<span class="text-xs text-gray-300">{manager}</span>
+	</Button>
 {/each}
