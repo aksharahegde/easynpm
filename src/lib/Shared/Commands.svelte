@@ -11,10 +11,10 @@
 		pnpm: 'install'
 	}
 	export let row: Package;
-	let isDevDependancy: boolean = false;
+	let isDevDependency: boolean = false;
 
 	const copyCommand = (manager: string) => {
-		const val: string = `${manager} ${packageCommands[manager]}${isDevDependancy ? ' -D' : ''} ${row.name}@${row.version}`;
+		const val: string = `${manager} ${packageCommands[manager]}${isDevDependency ? ' -D' : ''} ${row.name}@${row.version}`;
 		const app = new CopyToClipboard({
 			target: document.getElementById('clipboard')!,
 			props: { val }
@@ -24,7 +24,7 @@
 	};
 </script>
 
-<Toggle color="orange" bind:checked={isDevDependancy} class="mr-4">Dev dependancy</Toggle>
+<Toggle color="orange" bind:checked={isDevDependency} class="mr-4">Dev dependency</Toggle>
 {#each packageManagers as manager}
 	<Button color="dark" outline size="sm" light on:click={() => copyCommand(manager)}>
 		<span class="text-xs text-gray-300">{manager}</span>
