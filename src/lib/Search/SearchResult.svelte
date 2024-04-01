@@ -124,7 +124,7 @@
 						<div
 							class="{toggledIndex === i
 								? 'md:flex'
-								: 'md:hidden'} flex md:absolute left-1/4 top-0 bottom-0 right-0 z-10 gap-2 justify-between items-center md:p-4 md:bg-gray-800 dark:bg-gray-800 rounded-lg"
+								: 'md:hidden'} flex md:absolute left-1/4 top-0 bottom-0 right-0 z-10 gap-2 justify-between items-center md:p-4 md:bg-gray-300 dark:bg-gray-800 rounded-lg"
 						>
 							<div class="hidden gap-2 items-center px-4 md:flex">
 								<Commands row={row.package} />
