@@ -5,7 +5,7 @@
 	export let row: Package;
 </script>
 
-<div class="flex gap-2 justify-end items-center my-2 w-full md:my-0">
+<div class="flex gap-2 justify-start items-center my-2 w-full md:my-0">
 	{#if row.links?.homepage}
 		<Badge href={row.links?.homepage} color="indigo" target="_blank">
 			<LinkSolid size="sm" class="mr-1 w-3" />

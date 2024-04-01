@@ -27,6 +27,6 @@
 <Toggle color="orange" bind:checked={isDevDependency} class="mr-4">Dev dependency</Toggle>
 {#each packageManagers as manager}
 	<Button color="dark" outline size="sm" light on:click={() => copyCommand(manager)}>
-		<span class="text-xs text-gray-300">{manager}</span>
+		<span class="text-xs dark:text-gray-300">{manager}</span>
 	</Button>
 {/each}

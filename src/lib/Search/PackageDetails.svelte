@@ -84,7 +84,7 @@
 					{/each}
 				</div>
 			</div>
-			<div class="flex gap-2 py-2 flex-cold md:flex-row">
+			<div class="flex flex-col gap-2 py-2">
 				<LastUpdated value={selectedPackage.date} />
 				<Links row={selectedPackage} />
 			</div>
