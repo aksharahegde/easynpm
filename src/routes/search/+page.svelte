@@ -2,13 +2,17 @@
 	import SearchPanel from '$lib/Search/SearchPanel.svelte';
 </script>
 
-<div class="container px-4 py-8 mx-auto text-center lg:px-12 min-h-[calc(100vh-144px)]">
+<div
+	class="mx-auto min-h-[calc(100vh-8rem)] max-w-container-max px-margin-mobile py-stack-lg text-left md:px-gutter"
+>
 	<SearchPanel />
 </div>
+
 <svelte:head>
-	<title>Discover, Explore, and Find the Perfect NPM Packages</title>
+	<title>EasyNPM | Search</title>
+	<meta name="title" content="EasyNPM | Search" />
 	<meta
 		name="description"
-		content="Find top Node.js packages easily. Streamline development, boost productivity. Discover, explore, and choose with confidence. Start searching now!"
+		content="Search npm packages with advanced filters, one-click install commands, and bag support."
 	/>
 </svelte:head>

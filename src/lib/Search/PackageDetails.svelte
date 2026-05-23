@@ -11,32 +11,43 @@
 
 	export let selectedPackage: Package;
 	let loading = false;
-	let result: any;
+	let result: {
+		description?: string;
+		readme?: string;
+		distTags: { name: string; value: string }[];
+	};
 	let hidden = false;
-	let transitionParamsRight = {
+	const transitionParamsRight = {
 		x: 320,
 		duration: 200,
 		easing: sineIn
 	};
+
 	onMount(() => {
 		fetchDetails();
 		history.pushState('', selectedPackage.name, `/${selectedPackage.name}`);
 	});
+
 	async function fetchDetails() {
 		loading = true;
-		let url = `https://registry.npmjs.com/${selectedPackage.name}`;
+		const url = `https://registry.npmjs.com/${selectedPackage.name}`;
 		const res = await fetch(url);
-		result = await res.json();
-		result.distTags = Object.entries(result['dist-tags']).map(([name, value]) => ({ name, value }));
+		const data = await res.json();
+		result = {
+			...data,
+			distTags: Object.entries(data['dist-tags'] ?? {}).map(([name, value]) => ({
+				name,
+				value: String(value)
+			}))
+		};
 		loading = false;
 	}
+
 	const dispatch = createEventDispatcher();
+
 	const drawerClosed = () => {
-		console.log('closed');
 		history.back();
-		dispatch('closed', {
-			text: 'Closed!'
-		});
+		dispatch('closed');
 	};
 </script>
 
@@ -48,49 +59,61 @@
 	on:hide={drawerClosed}
 	id="sidebar"
 >
-	<div class="flex items-center">
+	<div class="flex items-start justify-between gap-stack-sm border-b border-surface-border pb-stack-md dark:border-gray-700">
 		{#if result && !loading}
-			<div class="hidden flex-wrap gap-4 items-center py-2 text-left md:flex">
+			<div class="hidden flex-wrap items-center gap-stack-sm md:flex">
 				<AddToBag row={selectedPackage} />
-				<Commands row={selectedPackage} />
 			</div>
 		{/if}
-
-		<CloseButton on:click={() => (hidden = true)} class="mb-4 dark:text-white" />
+		<CloseButton
+			on:click={() => (hidden = true)}
+			class="ml-auto text-slate-muted hover:text-primary dark:text-gray-400"
+		/>
 	</div>
+
 	{#if loading}
-		<div class="py-12">
-			<Spinner size="24" />
+		<div class="flex justify-center py-12">
+			<Spinner size="8" color="primary" />
 		</div>
 	{:else if result}
-		<div class="py-4 text-left">
-			<h2 class="flex text-4xl font-semibold text-gray-800 dark:text-gray-100">
+		<div class="py-stack-md text-left">
+			<h2 class="font-headline-lg text-headline-lg text-slate-text dark:text-gray-100">
 				{selectedPackage.name}
 			</h2>
-			<p class="my-2 max-w-sm text-gray-600 md:max-w-4xl dark:text-gray-300">
+			<p class="my-stack-sm max-w-4xl font-body-md text-body-md text-slate-muted dark:text-gray-400">
 				{result.description}
 			</p>
-			<div class="flex flex-col px-4 py-2">
-				<div class="text-sm font-semibold text-gray-600 dark:text-gray-500">Version</div>
-				<div class="flex gap-3">
+
+			<div class="mb-stack-md md:hidden">
+				<AddToBag row={selectedPackage} />
+			</div>
+
+			<div class="mb-stack-md">
+				<Commands row={selectedPackage} />
+			</div>
+
+			<div class="mb-stack-md">
+				<div class="mb-stack-sm font-label-caps text-label-caps text-slate-muted">Versions</div>
+				<div class="flex flex-wrap gap-2">
 					{#each result.distTags as tag}
-						<div class="px-3 py-2 bg-gray-100 dark:bg-slate-800">
-							<div class="text-sm text-gray-500 dark:text-gray-300">
-								{tag.name}
-							</div>
-							<div class="text-gray-600 dark:text-gray-200">
+						<div
+							class="rounded border border-surface-border bg-surface-container px-3 py-2 dark:border-gray-600 dark:bg-gray-900"
+						>
+							<div class="text-xs text-slate-muted dark:text-gray-400">{tag.name}</div>
+							<div class="font-code-snippet text-body-sm text-slate-text dark:text-gray-200">
 								{tag.value}
 							</div>
 						</div>
 					{/each}
 				</div>
 			</div>
-			<div class="flex flex-col gap-2 py-2">
+
+			<div class="flex flex-col gap-stack-sm border-t border-surface-border pt-stack-md dark:border-gray-700">
 				<LastUpdated value={selectedPackage.date} />
 				<Links row={selectedPackage} />
 			</div>
 		</div>
-		<div class="py-2 text-left markdown-block">
+		<div class="markdown-block border-t border-surface-border py-stack-md text-left dark:border-gray-700">
 			<Markdown source={result.readme} />
 		</div>
 	{/if}

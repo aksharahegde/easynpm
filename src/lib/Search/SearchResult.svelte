@@ -1,37 +1,25 @@
 <script lang="ts">
 	import type { Package, Payload, SearchResult } from '$lib/types/Results';
-	import {
-		Button,
-		Progressbar,
-		Indicator,
-		Listgroup,
-		ListgroupItem,
-		Tooltip,
-		Toggle
-	} from 'flowbite-svelte';
-	import { EyeSolid } from 'flowbite-svelte-icons';
+	import Reveal from '$lib/Shared/Reveal.svelte';
 	import PackageDetails from './PackageDetails.svelte';
-	import Links from '$lib/Shared/Links.svelte';
-	import LastUpdated from '$lib/Shared/LastUpdated.svelte';
-	import AddToBag from '$lib/Shared/AddToBag.svelte';
-	import Commands from '$lib/Shared/Commands.svelte';
+	import SearchResultCard from './SearchResultCard.svelte';
 	import Toastr from '$lib/Shared/Toastr.svelte';
 
 	export let payload: Payload;
 	export let result: SearchResult;
-	let placement: string | null = null;
-	let toggledIndex: number | null = null;
-	let loading = false;
-	let showLinks = false;
-	let selectedPackage: Package;
-	let isDetailsOpen: boolean = false;
-	let offset: number = 20;
 
-	const toggleMenu = (index: any) => {
-		toggledIndex = index;
-	};
-	const displayText = (e: any) => {
-		placement = e?.target?.id.replace('placement-', '').replaceAll('_', ' ');
+	let showLinks = false;
+	let loading = false;
+	let selectedPackage: Package;
+	let isDetailsOpen = false;
+	let offset = 20;
+
+	const openPackageDetails = (row: Package) => {
+		isDetailsOpen = false;
+		setTimeout(() => {
+			selectedPackage = row;
+			isDetailsOpen = true;
+		}, 100);
 	};
 
 	const loadMore = async () => {
@@ -51,122 +39,62 @@
 			queryParams += `&from=${offset}`;
 		}
 
-		let url = `https://registry.npmjs.com/-/v1/search?${queryParams}`;
+		const url = `https://registry.npmjs.com/-/v1/search?${queryParams}`;
 		const res = await fetch(url);
 		const data = await res.json();
 		loading = false;
 		result.objects = result.objects.concat(data.objects);
 		offset += data.objects.length;
 	};
-
-	const togglePackageDetails = (row: Package) => {
-		isDetailsOpen = false;
-		setTimeout(() => {
-			isDetailsOpen = true;
-		}, 100);
-		selectedPackage = row;
-	};
 </script>
 
-<div id="clipboard" />
+<div id="clipboard" class="sr-only" aria-hidden="true" />
 
-{#if isDetailsOpen}
+{#if isDetailsOpen && selectedPackage}
 	<PackageDetails {selectedPackage} on:closed={() => (isDetailsOpen = false)} />
 {/if}
 
 <Toastr />
+
 {#if result}
-	<div class="flex gap-2 justify-between items-center pt-4">
-		<Toggle
-			checked={showLinks}
-			class="cursor-pointer"
-			value="Relaxed mode"
-			size="small"
-			on:click={() => (showLinks = !showLinks)}>Show links</Toggle
+	<div class="flex flex-wrap items-center justify-between gap-stack-sm pt-stack-md">
+		<label
+			class="inline-flex cursor-pointer items-center gap-2 font-body-sm text-body-sm text-slate-muted dark:text-gray-400"
 		>
-		<span class="text-sm text-gray-400">
+			<input
+				type="checkbox"
+				bind:checked={showLinks}
+				class="h-4 w-4 rounded border-surface-border text-primary focus:ring-primary"
+			/>
+			Show links
+		</label>
+		<span class="font-body-sm text-body-sm text-slate-muted dark:text-gray-400">
 			Showing {result.objects.length} of {result.total} results
 		</span>
 	</div>
-{/if}
 
-<Listgroup active class="mt-4">
-	{#if result}
-		{#each result.objects as row, i}
-			<ListgroupItem
-				class="flex-col gap-2 justify-between w-full"
-				on:mouseenter={() => toggleMenu(i)}
-				on:mouseleave={() => toggleMenu(null)}
-			>
-				<div class="flex relative flex-col gap-2 justify-between w-full md:flex-row">
-					<div class="w-full md:w-3/4">
-						<button
-							class="flex gap-1 items-center"
-							on:click|once={() => togglePackageDetails(row.package)}
-						>
-							<span class="text-lg font-semibold text-primary-600">{row.package.name}</span>
-							<span class="text-xs dark:text-gray-300">v{row.package.version}</span>
-						</button>
-						{#if row.package.description}
-							<p class="mt-2 font-normal text-gray-500 dark:text-gray-300 md:mt-0">
-								{row.package.description}
-							</p>
-						{/if}
-					</div>
-					<div class="w-full md:w-1/4">
-						<div class="hidden md:block">
-							<div class="flex gap-1 items-center">
-								<Progressbar progress={(row.score.final * 100).toString()} color="primary" />
-								<Indicator color="orange" size="xl" border>
-									<span class="text-xs text-white"
-										>{parseInt((row.score.final * 100).toString())}</span
-									>
-								</Indicator>
-							</div>
-							<LastUpdated value={row.package.date} />
-						</div>
-						<div
-							class="{toggledIndex === i
-								? 'md:flex'
-								: 'md:hidden'} flex md:absolute left-1/4 top-0 bottom-0 right-0 z-10 gap-2 justify-between items-center md:p-4 md:bg-gray-300 dark:bg-gray-800 rounded-lg"
-						>
-							<div class="hidden gap-2 items-center px-4 md:flex">
-								<Commands row={row.package} />
-							</div>
-							<div class="grid grid-cols-2 gap-2">
-								<Button
-									class="!p-2"
-									id="placement-view"
-									on:click|once={() => togglePackageDetails(row.package)}
-								>
-									<EyeSolid size="sm" />
-									<span class="ml-1 md:hidden">View</span>
-								</Button>
-								<AddToBag row={row.package} />
-								<Tooltip
-									triggeredBy="[id^='placement-']"
-									placement="bottom"
-									arrow={false}
-									on:show={displayText}
-								>
-									<span class="text-xs capitalize whitespace-nowrap">{placement}</span>
-								</Tooltip>
-							</div>
-						</div>
-					</div>
-				</div>
-				{#if showLinks}
-					<Links row={row.package} />
-				{/if}
-			</ListgroupItem>
+	<div class="mt-stack-md flex flex-col gap-3">
+		{#each result.objects as row, i (row.package.name)}
+			<Reveal delay={Math.min(i * 60, 300)}>
+				<SearchResultCard
+					pkg={row.package}
+					score={row.score.final}
+					{showLinks}
+					onView={openPackageDetails}
+				/>
+			</Reveal>
 		{/each}
-		{#if result.total > 20 && !loading}
-			<Button
-				on:click={loadMore}
-				class="flex justify-center items-center p-3 w-full text-sm font-medium bg-gray-50 rounded-t-none rounded-b-lg text-primary-600 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-primary-500"
-			>
-				View more
-			</Button>
-		{/if}
+	</div>
+
+	{#if result.total > result.objects.length}
+		<button
+			type="button"
+			data-testid="search-load-more"
+			disabled={loading}
+			class="interactive-press mt-gutter w-full rounded-xl border border-surface-border bg-surface-container-low py-4 font-body-md text-body-md font-semibold text-primary transition-all duration-300 ease-smooth hover:bg-surface-container disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+			on:click={loadMore}
+		>
+			{loading ? 'Loading…' : 'View more'}
+		</button>
 	{/if}
-</Listgroup>
+{/if}

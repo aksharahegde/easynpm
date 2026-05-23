@@ -13,7 +13,7 @@
 				href="https://github.com/aksharahegde/easynpm#readme"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="font-body-sm text-body-sm text-slate-muted transition-colors hover:text-primary hover:underline dark:text-gray-400"
+				class="font-body-sm text-body-sm text-slate-muted transition-all duration-300 ease-smooth hover:text-primary hover:underline dark:text-gray-400"
 			>
 				Documentation
 			</a>
@@ -21,7 +21,7 @@
 				href="https://github.com/aksharahegde/easynpm"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="font-body-sm text-body-sm text-slate-muted transition-colors hover:text-primary hover:underline dark:text-gray-400"
+				class="font-body-sm text-body-sm text-slate-muted transition-all duration-300 ease-smooth hover:text-primary hover:underline dark:text-gray-400"
 			>
 				GitHub
 			</a>
@@ -29,7 +29,7 @@
 				href="https://github.com/aksharahegde/easynpm/issues"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="font-body-sm text-body-sm text-slate-muted transition-colors hover:text-primary hover:underline dark:text-gray-400"
+				class="font-body-sm text-body-sm text-slate-muted transition-all duration-300 ease-smooth hover:text-primary hover:underline dark:text-gray-400"
 			>
 				Status
 			</a>
@@ -37,7 +37,7 @@
 				href="https://github.com/aksharahegde/easynpm"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="font-body-sm text-body-sm text-slate-muted transition-colors hover:text-primary hover:underline dark:text-gray-400"
+				class="font-body-sm text-body-sm text-slate-muted transition-all duration-300 ease-smooth hover:text-primary hover:underline dark:text-gray-400"
 			>
 				Privacy
 			</a>

@@ -10,6 +10,57 @@
 		'opsz' 24;
 }
 
+/* Scroll-reveal (Reveal.svelte) */
+.reveal {
+	--reveal-delay: 0ms;
+	opacity: 0;
+	transform: translateY(18px);
+	transition:
+		opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+	transition-delay: var(--reveal-delay);
+}
+
+.reveal.reveal-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Interactive polish */
+@layer utilities {
+	.interactive-lift {
+		@apply transition-all duration-300 ease-smooth;
+	}
+
+	.interactive-lift:hover {
+		@apply -translate-y-0.5 shadow-lg;
+	}
+
+	.interactive-press {
+		@apply transition-transform duration-150 ease-smooth active:scale-[0.98];
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.reveal,
+	.reveal.reveal-visible {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.animate-fade-in-up,
+	.animate-fade-in,
+	.animate-soft-pulse,
+	.animate-gentle-float {
+		animation: none !important;
+	}
+
+	.interactive-lift:hover {
+		transform: none;
+	}
+}
+
 button,
 svg {
 	@apply outline-none;
