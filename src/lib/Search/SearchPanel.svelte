@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { Payload, SearchResult } from '$lib/types/Results';
 	import {
 		Accordion,
@@ -12,33 +13,49 @@
 		Search
 	} from 'flowbite-svelte';
 	import { ArrowRightSolid, CloseSolid, CogOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
+	import { onMount } from 'svelte';
 	import SearchResultList from './SearchResult.svelte';
 
 	let showAdvancedFilters: boolean = false;
 	let appliedFilterCount: number = 0;
-	let timer: any;
+	let timer: ReturnType<typeof setTimeout> | undefined;
 	let loading = false;
 	let noResults = false;
-	let result: SearchResult;
+	let result: SearchResult | undefined;
+	let searchInputValue = '';
 	let payload: Payload = {
 		keyword: '',
 		quality: 0,
 		popularity: 0,
 		maintenance: 0
 	};
-	const fetchSearchResults = (e: any) => {
+
+	const fetchSearchResults = (e: Event) => {
+		const target = e.target as HTMLInputElement;
 		clearTimeout(timer);
-		payload.keyword = e.target.value;
+		payload.keyword = target.value;
+		searchInputValue = target.value;
 		timer = setTimeout(() => {
 			if (payload.keyword) {
 				loading = true;
 				noResults = false;
 				fetchResults();
 			} else {
-				result.objects = [];
+				result = undefined;
 			}
 		}, 750);
 	};
+
+	onMount(() => {
+		const initialQuery = $page.url.searchParams.get('q');
+		if (initialQuery) {
+			payload.keyword = initialQuery;
+			searchInputValue = initialQuery;
+			loading = true;
+			noResults = false;
+			fetchResults();
+		}
+	});
 
 	async function fetchResults() {
 		setAppliedFilterCount();
@@ -55,8 +72,9 @@
 
 		let url = `https://registry.npmjs.com/-/v1/search?${queryParams}`;
 		const res = await fetch(url);
-		result = await res.json();
-		noResults = !result.objects.length;
+		const data: SearchResult = await res.json();
+		result = data;
+		noResults = !data.objects.length;
 		loading = false;
 	}
 	const setAppliedFilterCount = () => {
@@ -83,7 +101,9 @@
 <div class="gap-4">
 	<div class="flex gap-4 items-center">
 		<Search
+			id="search-input"
 			size="lg"
+			bind:value={searchInputValue}
 			on:input={fetchSearchResults}
 			class="md:py-3"
 			placeholder="Start typing a package name"
