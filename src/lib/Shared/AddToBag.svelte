@@ -1,13 +1,14 @@
 <script lang="ts">
+	import type { Package } from '$lib/types/Results';
 	import { Button } from 'flowbite-svelte';
 	import { BagSolid } from 'flowbite-svelte-icons';
 	import { bagStore } from '$lib/stores/bag';
 	import { notifications } from '$lib/stores/notifications';
 
-    export let row: Package;
+	export let row: Package;
 	const addToBag = (packageDetails: any) => {
 		bagStore.add(packageDetails);
-        notifications.success('Added to bag', 1000)
+		notifications.success('Added to bag', 1000);
 	};
 </script>
 

@@ -2,20 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-button, svg {
-    @apply outline-none;
+button,
+svg {
+	@apply outline-none;
 }
 
 .markdown-block img {
-    @apply inline-flex m-1;
+	@apply inline-flex m-1;
 }
 
 #sidebar {
-    @apply w-full;
+	@apply w-full;
 }
 
 @media screen and (min-width: 768px) {
-    #sidebar {
-        @apply w-4/12 !important;
-    }
+	#sidebar {
+		@apply w-4/12 !important;
+	}
 }

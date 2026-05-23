@@ -4,7 +4,7 @@
 
 	const displayText = (e: any) => {
 		const manager = e?.target?.id.replace('placement-', '').replaceAll('_', ' ');
-        placement = `${manager} {package}@{version}`;
+		placement = `${manager} {package}@{version}`;
 	};
 </script>
 
@@ -16,7 +16,8 @@
 					One-click <span class="text-primary-600">Copy / Bag</span>
 				</h1>
 				<p class="text-lg text-gray-600 dark:text-gray-300">
-					Copy the installation command to your clipboard <br class="hidden md:block"/> or add to your bag with one click.
+					Copy the installation command to your clipboard <br class="hidden md:block" /> or add to your
+					bag with one click.
 				</p>
 				<div class="flex flex-wrap gap-6">
 					<Button id="placement-yarn_add" color="alternative">yarn</Button>
@@ -33,7 +34,6 @@
 				</div>
 			</div>
 			<div class="grid relative grid-cols-5 grid-rows-4 gap-4 md:w-5/12 lg:w-6/12">
-				
 				<div class="col-span-3 row-span-3">
 					<Img
 						src="/one_click_light.png"
@@ -41,21 +41,21 @@
 						loading="lazy"
 						class="block object-contain object-bottom w-full rounded-xl border border-gray-300 shadow-lg h-fit dark:hidden"
 					/>
-                    <Img
+					<Img
 						src="/one_click_dark.png"
 						alt="advanced filter"
 						loading="lazy"
 						class="hidden object-contain object-bottom w-full h-full rounded-xl dark:block"
 					/>
 				</div>
-                <div class="col-span-2 row-span-3">
+				<div class="col-span-2 row-span-3">
 					<Img
 						src="/bag_light.png"
 						alt="advanced filter"
 						loading="lazy"
 						class="block object-cover object-top w-full h-full rounded-xl border border-gray-300 shadow-lg dark:hidden"
 					/>
-                    <Img
+					<Img
 						src="/bag_dark.png"
 						alt="advanced filter"
 						loading="lazy"

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Package } from '$lib/types/Results';
 	import { Drawer, CloseButton, Spinner } from 'flowbite-svelte';
 	import { sineIn } from 'svelte/easing';
 	import { onMount, createEventDispatcher } from 'svelte';
@@ -32,7 +33,7 @@
 	const dispatch = createEventDispatcher();
 	const drawerClosed = () => {
 		console.log('closed');
-		history.back()
+		history.back();
 		dispatch('closed', {
 			text: 'Closed!'
 		});

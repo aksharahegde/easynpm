@@ -1,10 +1,10 @@
 <script lang="ts">
+	import type { Payload, SearchResult } from '$lib/types/Results';
 	import {
 		Accordion,
 		AccordionItem,
 		Alert,
 		Button,
-		Card,
 		Indicator,
 		Label,
 		ListPlaceholder,
@@ -12,7 +12,7 @@
 		Search
 	} from 'flowbite-svelte';
 	import { ArrowRightSolid, CloseSolid, CogOutline, InfoCircleSolid } from 'flowbite-svelte-icons';
-	import SearchResult from './SearchResult.svelte';
+	import SearchResultList from './SearchResult.svelte';
 
 	let showAdvancedFilters: boolean = false;
 	let appliedFilterCount: number = 0;
@@ -147,7 +147,7 @@
 			No results found for "{payload.keyword}". Please check with relative keywords.
 		</Alert>
 	{:else if result?.objects.length}
-		<SearchResult {result} {payload} />
+		<SearchResultList {result} {payload} />
 	{:else}
 		<div
 			class="flex overflow-hidden relative flex-col gap-6 items-center p-4 mt-4 w-full text-gray-500 rounded-lg border border-gray-200 divide-gray-200 shadow-md md:flex-row fbg-white dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 dark:divide-gray-700 sm:p-6"
