@@ -5,7 +5,15 @@
 		<div class="flex flex-col items-center gap-2 md:items-start">
 			<span class="font-headline-lg text-headline-lg font-bold text-primary">EasyNPM</span>
 			<p class="font-body-sm text-body-sm text-slate-muted dark:text-gray-400">
-				© {new Date().getFullYear()} EasyNPM Dev Team. Built for performance.
+				© {new Date().getFullYear()}
+				<a
+					href="https://akshara.dev"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="transition-colors hover:text-primary hover:underline"
+				>
+					Akshara Hegde
+				</a>. Built for performance.
 			</p>
 		</div>
 		<div class="flex flex-wrap justify-center gap-stack-md">
