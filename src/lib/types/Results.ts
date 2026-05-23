@@ -1,4 +1,4 @@
-interface Package {
+export interface Package {
 	name: string;
 	version: string;
 	description: string;
@@ -31,7 +31,7 @@ interface Score {
 	detail: Detail;
 }
 
-interface SearchResult {
+export interface SearchResult {
 	objects: {
 		package: Package;
 		score: Score;
@@ -41,7 +41,7 @@ interface SearchResult {
 	time: string;
 }
 
-interface Payload {
+export interface Payload {
 	keyword: string;
 	quality: number;
 	popularity: number;

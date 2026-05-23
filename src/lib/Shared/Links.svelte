@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Package } from '$lib/types/Results';
 	import { Badge } from 'flowbite-svelte';
 	import { LinkSolid } from 'flowbite-svelte-icons';
 

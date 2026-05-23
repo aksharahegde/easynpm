@@ -5,8 +5,8 @@ function createNotificationStore() {
 
 	function send(message: any, type = 'default', timeout: any) {
 		_notifications.update((state: any) => {
-            return [...state, { id: id(), type, message, timeout }];
-        });
+			return [...state, { id: id(), type, message, timeout }];
+		});
 	}
 
 	const notifications = derived(_notifications, ($_notifications: any, set) => {

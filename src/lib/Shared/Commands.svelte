@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Package } from '$lib/types/Results';
 	import { Button, Toggle } from 'flowbite-svelte';
 	import { notifications } from '$lib/stores/notifications';
 	import CopyToClipboard from '../Shared/CopyToClipboard.svelte';
@@ -9,7 +10,7 @@
 		bun: 'add',
 		npm: 'install',
 		pnpm: 'install'
-	}
+	};
 	export let row: Package;
 	let isDevDependency: boolean = false;
 

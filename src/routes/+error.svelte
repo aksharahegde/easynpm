@@ -24,23 +24,26 @@
 				>.
 			</p>
 			<div class="flex gap-2 justify-center items-center">
-                <Button outline href="/">
-                    <HomeSolid size="sm" class="mr-2" />
-                    Home
-                </Button>
-                <Button href="/search">
-                    <SearchSolid size="sm" class="mr-2" />
-                    Search
-                </Button>
-                <Button outline href="https://www.npmjs.com/?ref=easynpm" target="_blank">
-                    <StarSolid size="sm" class="mr-2" />
-                    NPM
-                </Button>
-            </div>
+				<Button outline href="/">
+					<HomeSolid size="sm" class="mr-2" />
+					Home
+				</Button>
+				<Button href="/search">
+					<SearchSolid size="sm" class="mr-2" />
+					Search
+				</Button>
+				<Button outline href="https://www.npmjs.com/?ref=easynpm" target="_blank">
+					<StarSolid size="sm" class="mr-2" />
+					NPM
+				</Button>
+			</div>
 		</div>
 	</div>
 </section>
 <svelte:head>
-  <title>Discover, Explore, and Find the Perfect NPM Packages</title>
-  <meta name="description" content="Find top Node.js packages easily. Streamline development, boost productivity. Discover, explore, and choose with confidence. Start searching now!" />
+	<title>Discover, Explore, and Find the Perfect NPM Packages</title>
+	<meta
+		name="description"
+		content="Find top Node.js packages easily. Streamline development, boost productivity. Discover, explore, and choose with confidence. Start searching now!"
+	/>
 </svelte:head>

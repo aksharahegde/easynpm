@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Package, Payload, SearchResult } from '$lib/types/Results';
 	import {
 		Button,
 		Progressbar,
@@ -99,7 +100,10 @@
 			>
 				<div class="flex relative flex-col gap-2 justify-between w-full md:flex-row">
 					<div class="w-full md:w-3/4">
-						<button class="flex gap-1 items-center" on:click|once={() => togglePackageDetails(row.package)}>
+						<button
+							class="flex gap-1 items-center"
+							on:click|once={() => togglePackageDetails(row.package)}
+						>
 							<span class="text-lg font-semibold text-primary-600">{row.package.name}</span>
 							<span class="text-xs dark:text-gray-300">v{row.package.version}</span>
 						</button>
