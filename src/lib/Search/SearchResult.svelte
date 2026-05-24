@@ -8,7 +8,6 @@
 	export let payload: Payload;
 	export let result: SearchResult;
 
-	let showLinks = false;
 	let loading = false;
 	let selectedPackage: Package;
 	let isDetailsOpen = false;
@@ -57,17 +56,7 @@
 <Toastr />
 
 {#if result}
-	<div class="flex flex-wrap items-center justify-between gap-stack-sm pt-stack-md">
-		<label
-			class="inline-flex cursor-pointer items-center gap-2 font-body-sm text-body-sm text-slate-muted dark:text-gray-400"
-		>
-			<input
-				type="checkbox"
-				bind:checked={showLinks}
-				class="h-4 w-4 rounded border-surface-border text-primary focus:ring-primary"
-			/>
-			Show links
-		</label>
+	<div class="flex flex-wrap items-center justify-end gap-stack-sm pt-stack-md">
 		<span class="font-body-sm text-body-sm text-slate-muted dark:text-gray-400">
 			Showing {result.objects.length} of {result.total} results
 		</span>
@@ -76,12 +65,7 @@
 	<div class="mt-stack-md flex flex-col gap-3">
 		{#each result.objects as row, i (row.package.name)}
 			<Reveal delay={Math.min(i * 60, 300)}>
-				<SearchResultCard
-					pkg={row.package}
-					score={row.score.final}
-					{showLinks}
-					onView={openPackageDetails}
-				/>
+				<SearchResultCard item={row} onView={openPackageDetails} />
 			</Reveal>
 		{/each}
 	</div>

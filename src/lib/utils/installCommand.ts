@@ -17,12 +17,7 @@ export function buildInstallCommand(
 	return `${manager} ${verb}${isDevDependency ? ' -D' : ''} ${pkg.name}@${pkg.version}`;
 }
 
-export function copyInstallCommand(
-	pkg: Package,
-	manager: string,
-	isDevDependency = false
-): void {
-	const val = buildInstallCommand(pkg, manager, isDevDependency);
+export function copyText(val: string, message?: string): void {
 	const target = document.getElementById('clipboard');
 	if (!target) return;
 
@@ -31,7 +26,16 @@ export function copyInstallCommand(
 		props: { val }
 	});
 	app.$destroy();
-	notifications.success(`${val} copied to clipboard`, 1000);
+	notifications.success(message ?? `${val} copied to clipboard`, 1000);
+}
+
+export function copyInstallCommand(
+	pkg: Package,
+	manager: string,
+	isDevDependency = false
+): void {
+	const val = buildInstallCommand(pkg, manager, isDevDependency);
+	copyText(val, `${val} copied to clipboard`);
 }
 
 export function getPackageManagers(): (PackageManager | 'bun')[] {

@@ -4,6 +4,8 @@ export interface Package {
 	description: string;
 	keywords: string[];
 	date: string;
+	license?: string;
+	sanitized_name?: string;
 	links: {
 		npm: string;
 		homepage: string;
@@ -20,23 +22,38 @@ export interface Package {
 	}[];
 }
 
-interface Detail {
+export interface ScoreDetail {
 	quality: number;
 	popularity: number;
 	maintenance: number;
 }
 
-interface Score {
+export interface Score {
 	final: number;
-	detail: Detail;
+	detail: ScoreDetail;
+}
+
+export interface Downloads {
+	monthly: number;
+	weekly: number;
+}
+
+export interface SearchFlags {
+	insecure?: number;
+}
+
+export interface SearchObject {
+	package: Package;
+	score: Score;
+	searchScore: number;
+	downloads?: Downloads;
+	dependents?: string;
+	updated?: string;
+	flags?: SearchFlags;
 }
 
 export interface SearchResult {
-	objects: {
-		package: Package;
-		score: Score;
-		searchScore: number;
-	}[];
+	objects: SearchObject[];
 	total: number;
 	time: string;
 }
