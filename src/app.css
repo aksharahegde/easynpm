@@ -93,13 +93,3 @@ svg {
 .markdown-block img {
 	@apply inline-flex m-1;
 }
-
-#sidebar {
-	@apply w-full;
-}
-
-@media screen and (min-width: 768px) {
-	#sidebar {
-		@apply w-4/12 !important;
-	}
-}

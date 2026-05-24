@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Package, Payload, SearchResult } from '$lib/types/Results';
+	import type { Package, Payload, SearchObject, SearchResult } from '$lib/types/Results';
 	import Reveal from '$lib/Shared/Reveal.svelte';
 	import PackageDetails from './PackageDetails.svelte';
 	import SearchResultCard from './SearchResultCard.svelte';
@@ -9,14 +9,16 @@
 	export let result: SearchResult;
 
 	let loading = false;
-	let selectedPackage: Package;
+	let selectedItem: SearchObject;
 	let isDetailsOpen = false;
 	let offset = 20;
 
 	const openPackageDetails = (row: Package) => {
+		const match = result.objects.find((o) => o.package.name === row.name);
+		if (!match) return;
 		isDetailsOpen = false;
 		setTimeout(() => {
-			selectedPackage = row;
+			selectedItem = match;
 			isDetailsOpen = true;
 		}, 100);
 	};
@@ -49,8 +51,8 @@
 
 <div id="clipboard" class="sr-only" aria-hidden="true" />
 
-{#if isDetailsOpen && selectedPackage}
-	<PackageDetails {selectedPackage} on:closed={() => (isDetailsOpen = false)} />
+{#if isDetailsOpen && selectedItem}
+	<PackageDetails item={selectedItem} on:closed={() => (isDetailsOpen = false)} />
 {/if}
 
 <Toastr />
