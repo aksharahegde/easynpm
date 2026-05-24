@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Package, Payload, SearchResult } from '$lib/types/Results';
+	import type { Package, Payload, SearchObject, SearchResult } from '$lib/types/Results';
 	import Reveal from '$lib/Shared/Reveal.svelte';
 	import PackageDetails from './PackageDetails.svelte';
 	import SearchResultCard from './SearchResultCard.svelte';
@@ -8,16 +8,17 @@
 	export let payload: Payload;
 	export let result: SearchResult;
 
-	let showLinks = false;
 	let loading = false;
-	let selectedPackage: Package;
+	let selectedItem: SearchObject;
 	let isDetailsOpen = false;
 	let offset = 20;
 
 	const openPackageDetails = (row: Package) => {
+		const match = result.objects.find((o) => o.package.name === row.name);
+		if (!match) return;
 		isDetailsOpen = false;
 		setTimeout(() => {
-			selectedPackage = row;
+			selectedItem = match;
 			isDetailsOpen = true;
 		}, 100);
 	};
@@ -50,24 +51,14 @@
 
 <div id="clipboard" class="sr-only" aria-hidden="true" />
 
-{#if isDetailsOpen && selectedPackage}
-	<PackageDetails {selectedPackage} on:closed={() => (isDetailsOpen = false)} />
+{#if isDetailsOpen && selectedItem}
+	<PackageDetails item={selectedItem} on:closed={() => (isDetailsOpen = false)} />
 {/if}
 
 <Toastr />
 
 {#if result}
-	<div class="flex flex-wrap items-center justify-between gap-stack-sm pt-stack-md">
-		<label
-			class="inline-flex cursor-pointer items-center gap-2 font-body-sm text-body-sm text-slate-muted dark:text-gray-400"
-		>
-			<input
-				type="checkbox"
-				bind:checked={showLinks}
-				class="h-4 w-4 rounded border-surface-border text-primary focus:ring-primary"
-			/>
-			Show links
-		</label>
+	<div class="flex flex-wrap items-center justify-end gap-stack-sm pt-stack-md">
 		<span class="font-body-sm text-body-sm text-slate-muted dark:text-gray-400">
 			Showing {result.objects.length} of {result.total} results
 		</span>
@@ -76,12 +67,7 @@
 	<div class="mt-stack-md flex flex-col gap-3">
 		{#each result.objects as row, i (row.package.name)}
 			<Reveal delay={Math.min(i * 60, 300)}>
-				<SearchResultCard
-					pkg={row.package}
-					score={row.score.final}
-					{showLinks}
-					onView={openPackageDetails}
-				/>
+				<SearchResultCard item={row} onView={openPackageDetails} />
 			</Reveal>
 		{/each}
 	</div>
