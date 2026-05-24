@@ -9,7 +9,10 @@
 		<div
 			class="mt-8 flex flex-col items-start justify-between gap-4 border-t border-rule pt-4 md:flex-row md:items-baseline"
 		>
-			<span class="font-display text-base font-bold text-ink">EasyNPM</span>
+			<span class="flex items-center gap-1.5 font-display text-base font-bold text-ink">
+				<span class="material-symbols-outlined text-accent" style="font-size: 18px">search</span>
+				EasyNPM
+			</span>
 			<div class="flex flex-wrap items-baseline gap-4">
 				<a
 					href="https://github.com/aksharahegde/easynpm#readme"

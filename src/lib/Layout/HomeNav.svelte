@@ -14,8 +14,9 @@
 	>
 		<a
 			href="/"
-			class="font-display text-xl font-bold tracking-[-0.015em] text-ink transition-opacity duration-[var(--dur-micro)] hover:opacity-70"
+			class="flex items-center gap-2 font-display text-xl font-bold tracking-[-0.015em] text-ink transition-opacity duration-[var(--dur-micro)] hover:opacity-70"
 		>
+			<span class="material-symbols-outlined text-accent" style="font-size: 22px">search</span>
 			EasyNPM
 		</a>
 		<div class="flex items-center gap-5">
