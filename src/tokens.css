@@ -16,11 +16,11 @@
   --color-muted: oklch(42% 0.012 42);
   --color-ink: oklch(20% 0.015 40);
 
-  /* Accent — burnt orange */
-  --color-accent: oklch(50% 0.16 45);
-  --color-accent-hover: oklch(43% 0.18 42);
-  --color-focus: oklch(52% 0.18 45);
-  --color-accent-soft: oklch(94% 0.035 50);
+  /* Accent — #ef562f red-orange */
+  --color-accent: oklch(62% 0.19 30);
+  --color-accent-hover: oklch(55% 0.21 28);
+  --color-focus: oklch(62% 0.22 30);
+  --color-accent-soft: oklch(95% 0.03 32);
 
   /* Nav translucent */
   --color-nav-bg: oklch(97.5% 0.007 60 / 0.92);
@@ -61,10 +61,10 @@
   --color-neutral: oklch(55% 0.008 45);
   --color-muted: oklch(65% 0.008 48);
   --color-ink: oklch(94% 0.006 55);
-  --color-accent: oklch(68% 0.15 45);
-  --color-accent-hover: oklch(74% 0.16 48);
-  --color-focus: oklch(68% 0.18 45);
-  --color-accent-soft: oklch(22% 0.03 45);
+  --color-accent: oklch(72% 0.17 32);
+  --color-accent-hover: oklch(78% 0.18 34);
+  --color-focus: oklch(72% 0.20 32);
+  --color-accent-soft: oklch(22% 0.03 30);
   --color-nav-bg: oklch(14% 0.01 40 / 0.92);
   --shadow-whisper: 0 1px 3px oklch(5% 0.01 40 / 0.2);
   --shadow-lifted: 0 8px 24px -10px oklch(5% 0.02 40 / 0.3);

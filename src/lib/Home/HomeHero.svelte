@@ -35,7 +35,7 @@
 			class="animate-fade-in-up font-display text-display text-ink"
 			style="animation-delay: 0ms; overflow-wrap: anywhere; min-width: 0"
 		>
-			Search. Find. Install.
+			Search<span class="text-accent">.</span> Find<span class="text-accent">.</span> Install<span class="text-accent">.</span>
 		</h1>
 
 		<!-- Accent bar — small decorative rule -->
