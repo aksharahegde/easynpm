@@ -6,93 +6,75 @@
 		'Live bundle size tracking',
 		'Real-time dependency graphs'
 	];
-
-	const stats = [
-		{ label: 'STARS', value: '56k' },
-		{ label: 'SIZE', value: '24kB' },
-		{ label: 'NPM', value: '45M' }
-	];
 </script>
 
-<section class="overflow-hidden px-margin-mobile py-section-gap md:px-gutter">
-	<div class="mx-auto max-w-container-max">
-		<div class="flex flex-col items-center gap-gutter md:flex-row">
+<section class="px-5 py-28 md:px-6">
+	<div class="mx-auto" style="max-width: var(--page-max)">
+		<div class="flex flex-col gap-12 md:flex-row md:items-center md:gap-16">
 			<Reveal class="flex-1">
-				<h2 class="mb-stack-md font-headline-lg text-headline-lg text-slate-text dark:text-gray-100">
+				<h2 class="font-display text-2xl font-bold tracking-tight text-ink md:text-3xl">
 					Experience Pure Performance
 				</h2>
-				<p class="mb-stack-lg font-body-md text-body-md text-slate-muted dark:text-gray-400">
-					We've stripped away everything that slows you down. Our search algorithms are fine-tuned
-					for high-relevance results, providing you with downloads, stars, and bundle size at a
-					glance.
+				<p class="mt-4 max-w-md text-base leading-relaxed text-muted">
+					We've stripped away everything that slows you down. Search algorithms tuned for
+					high-relevance results. Downloads, stars, and bundle size at a glance.
 				</p>
-				<div class="space-y-stack-sm">
+				<div class="mt-8 space-y-3">
 					{#each checklist as item, i}
-						<Reveal delay={i * 80}>
-							<div class="flex items-start gap-stack-sm">
-								<span
-									class="material-symbols-outlined mt-1 text-primary transition-transform duration-300 hover:scale-110"
+						<Reveal delay={i * 60}>
+							<div class="flex items-start gap-3">
+								<div
+									class="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-accent-soft"
 								>
-									check_circle
-								</span>
-								<span class="font-body-md text-body-md text-slate-text dark:text-gray-200"
-									>{item}</span
-								>
+									<span
+										class="material-symbols-outlined text-accent"
+										style="font-size: 14px">check</span
+									>
+								</div>
+								<span class="text-sm font-medium text-ink">{item}</span>
 							</div>
 						</Reveal>
 					{/each}
 				</div>
 			</Reveal>
 
-			<Reveal delay={120} class="w-full flex-1">
+			<Reveal delay={120} class="min-w-0 flex-1">
 				<div class="relative">
-					<div
-						class="absolute -inset-4 -z-10 animate-soft-pulse rounded-2xl bg-primary/10 blur-3xl"
-					></div>
-					<div
-						class="interactive-lift overflow-hidden rounded-xl border border-surface-border bg-surface-container-lowest p-stack-md shadow-xl transition-shadow duration-500 dark:border-gray-700 dark:bg-gray-800"
+					<!-- Desktop screenshot -->
+					<figure
+						class="hover-lift overflow-hidden rounded-lg border border-rule shadow-lifted"
 					>
-						<div class="space-y-4">
-							<div
-								class="flex items-center justify-between border-b border-surface-border pb-4 dark:border-gray-700"
-							>
-								<div>
-									<span class="font-code-snippet text-lg font-bold text-slate-text dark:text-gray-100"
-										>lodash</span
-									>
-									<span class="ml-2 text-xs text-slate-muted dark:text-gray-400">v4.17.21</span>
-								</div>
-								<span
-									class="rounded bg-primary px-3 py-1 font-label-caps text-label-caps text-on-primary transition-transform duration-300 hover:scale-105"
-								>
-									ADD TO BAG
-								</span>
-							</div>
-							<div
-								class="group/code relative rounded border border-surface-border bg-code-bg p-stack-md font-code-snippet text-body-sm text-slate-text transition-colors duration-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
-							>
-								<code class="text-inherit">npm install lodash</code>
-								<span
-									class="material-symbols-outlined absolute right-3 top-3 cursor-pointer text-slate-muted transition-all duration-300 group-hover/code:scale-110 group-hover/code:text-primary"
-								>
-									content_copy
-								</span>
-							</div>
-							<div class="grid grid-cols-3 gap-2">
-								{#each stats as stat, i}
-									<div
-										class="rounded border border-surface-border bg-surface p-2 text-center transition-all duration-300 ease-smooth hover:-translate-y-0.5 hover:border-primary/20 dark:border-gray-600 dark:bg-gray-900"
-										style="transition-delay: {i * 50}ms"
-									>
-										<div class="text-xs uppercase tracking-wider text-slate-muted">
-											{stat.label}
-										</div>
-										<div class="font-bold text-slate-text dark:text-gray-100">{stat.value}</div>
-									</div>
-								{/each}
-							</div>
-						</div>
-					</div>
+						<img
+							src="/advanced_filter_light.png"
+							alt="Advanced filtering with quality, popularity, and maintenance sliders alongside search results"
+							class="block w-full dark:hidden"
+							loading="lazy"
+						/>
+						<img
+							src="/advanced_filter.png"
+							alt="Advanced filtering with quality, popularity, and maintenance sliders alongside search results"
+							class="hidden w-full dark:block"
+							loading="lazy"
+						/>
+					</figure>
+					<!-- Mobile screenshot — overlapping corner for depth -->
+					<figure
+						class="absolute -bottom-6 -right-3 hidden w-28 overflow-hidden rounded-lg border border-rule shadow-lifted md:block"
+						style="transform: rotate(2deg)"
+					>
+						<img
+							src="/mobile_light.png"
+							alt="EasyNPM mobile search view"
+							class="block w-full dark:hidden"
+							loading="lazy"
+						/>
+						<img
+							src="/mobile_dark.png"
+							alt="EasyNPM mobile search view"
+							class="hidden w-full dark:block"
+							loading="lazy"
+						/>
+					</figure>
 				</div>
 			</Reveal>
 		</div>

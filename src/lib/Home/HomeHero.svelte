@@ -8,11 +8,7 @@
 
 	function submitSearch() {
 		const trimmed = query.trim();
-		if (trimmed) {
-			goto(`/search?q=${encodeURIComponent(trimmed)}`);
-		} else {
-			goto('/search');
-		}
+		goto(trimmed ? `/search?q=${encodeURIComponent(trimmed)}` : '/search');
 	}
 
 	function onKeyDown(e: KeyboardEvent) {
@@ -27,36 +23,39 @@
 	}
 </script>
 
-<section class="px-margin-mobile pb-section-gap pt-32 md:px-gutter">
-	<div class="mx-auto max-w-container-max text-center">
-		<div
-			class="animate-fade-in-up mb-stack-md inline-block rounded-full bg-primary-fixed px-stack-md py-1 font-label-caps text-label-caps text-on-primary-fixed-variant"
-			style="animation-delay: 0ms"
-		>
-			THE ALTERNATIVE TO NPMJS
-		</div>
+<section class="relative px-5 pb-28 pt-32 md:px-6">
+	<!-- Subtle gradient wash for depth -->
+	<div
+		class="pointer-events-none absolute inset-0 -z-10"
+		style="background: radial-gradient(ellipse 80% 50% at 20% 40%, var(--color-accent-soft) 0%, transparent 70%)"
+	></div>
+
+	<div class="mx-auto" style="max-width: var(--page-max)">
 		<h1
-			class="animate-fade-in-up mb-stack-md font-headline-xl text-headline-xl text-slate-text dark:text-gray-100"
-			style="animation-delay: 80ms"
+			class="animate-fade-in-up font-display text-display text-ink"
+			style="animation-delay: 0ms; overflow-wrap: anywhere; min-width: 0"
 		>
 			Search. Find. Install.
 		</h1>
+
+		<!-- Accent bar — small decorative rule -->
+		<div
+			class="animate-fade-in-up mt-5 h-1 w-16 rounded-pill bg-accent"
+			style="animation-delay: 60ms"
+		></div>
+
 		<p
-			class="animate-fade-in-up mx-auto mb-stack-lg max-w-2xl font-body-md text-body-md text-slate-muted dark:text-gray-400"
-			style="animation-delay: 160ms"
+			class="animate-fade-in-up mt-6 max-w-lg text-lg leading-relaxed text-muted"
+			style="animation-delay: 100ms"
 		>
-			The ultra-fast developer companion for discovering packages. Built for speed, precision, and
-			zero-distraction engineering workflows.
+			The developer companion for discovering npm packages. Built for speed, precision, and
+			zero-distraction workflows.
 		</p>
 
-		<div
-			class="animate-fade-in-up group relative mx-auto max-w-3xl"
-			style="animation-delay: 240ms"
-		>
-			<div
-				class="pointer-events-none absolute inset-y-0 left-4 flex items-center transition-transform duration-300 ease-smooth group-focus-within:scale-110"
-			>
-				<span class="material-symbols-outlined text-slate-muted transition-colors duration-300 group-focus-within:text-primary"
+		<div class="animate-fade-in-up group relative mt-10 max-w-2xl" style="animation-delay: 180ms">
+			<div class="pointer-events-none absolute inset-y-0 left-5 flex items-center">
+				<span
+					class="material-symbols-outlined text-[22px] text-neutral transition-colors duration-[var(--dur-short)] group-focus-within:text-accent"
 					>search</span
 				>
 			</div>
@@ -67,38 +66,37 @@
 				bind:value={query}
 				on:keydown={onKeyDown}
 				placeholder="Search for packages (e.g., react, lodash, tailwind)..."
-				class="w-full rounded-xl border border-surface-border bg-surface-container-lowest py-5 pl-14 pr-16 font-body-md text-body-md text-on-surface shadow-sm transition-all duration-300 ease-smooth focus:outline-none focus:ring-2 focus:ring-primary focus:shadow-md focus:scale-[1.01] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+				class="w-full rounded-lg border border-rule bg-paper py-5 pl-14 pr-16 text-base text-ink shadow-whisper placeholder:text-neutral focus:border-accent focus:shadow-lifted focus:outline-none"
+				style="transition: border-color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out)"
 			/>
-			<div class="pointer-events-none absolute inset-y-0 right-4 hidden items-center md:flex">
+			<div class="pointer-events-none absolute inset-y-0 right-5 hidden items-center md:flex">
 				<kbd
-					class="inline-flex items-center gap-1 rounded border border-surface-border bg-surface-container px-2 py-1 font-code-snippet text-body-sm text-slate-muted transition-opacity duration-300 group-focus-within:opacity-70 dark:border-gray-600 dark:bg-gray-700"
+					class="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper-2 px-2.5 py-1 font-mono text-xs text-neutral"
 				>
-					<span class="text-xs">⌘</span>K
+					<span class="text-[10px]">⌘</span>K
 				</kbd>
 			</div>
 		</div>
 
-		<div
-			class="animate-fade-in-up mt-stack-lg flex flex-wrap justify-center gap-stack-md"
-			style="animation-delay: 320ms"
-		>
-			<div
-				class="flex rounded-lg border border-surface-border bg-surface-container-low p-1 dark:border-gray-600 dark:bg-gray-800"
-			>
-				{#each managers as manager}
-					<button
-						type="button"
-						data-testid={`home-package-manager-${manager}`}
-						class="interactive-press rounded px-stack-md py-2 font-label-caps text-label-caps transition-all duration-300 ease-smooth {$packageManager ===
-						manager
-							? 'scale-100 bg-primary text-on-primary shadow-sm'
-							: 'text-secondary hover:bg-surface-container dark:text-gray-400'}"
-						on:click={() => selectManager(manager)}
-					>
-						{manager.toUpperCase()}
-					</button>
-				{/each}
-			</div>
+		<div class="animate-fade-in-up mt-6 flex gap-1.5" style="animation-delay: 260ms">
+			{#each managers as manager}
+				<button
+					type="button"
+					data-testid={`home-package-manager-${manager}`}
+					class="press rounded-pill px-5 py-2 font-mono text-xs font-medium uppercase tracking-wide transition-colors duration-[var(--dur-short)]
+					{$packageManager === manager
+						? 'bg-ink text-paper shadow-whisper'
+						: 'border border-rule text-muted hover:bg-paper-3 hover:text-ink'}"
+					on:click={() => selectManager(manager)}
+				>
+					{manager}
+				</button>
+			{/each}
 		</div>
 	</div>
 </section>
+
+<!-- Marquee Hero divider -->
+<div class="px-5 md:px-6">
+	<div class="mx-auto border-t-[3px] border-rule" style="max-width: var(--page-max)"></div>
+</div>

@@ -1,6 +1,11 @@
+@import './tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html { overflow-x: clip; }
+body { overflow-x: clip; }
 
 .material-symbols-outlined {
 	font-variation-settings:
@@ -14,10 +19,10 @@
 .reveal {
 	--reveal-delay: 0ms;
 	opacity: 0;
-	transform: translateY(18px);
+	transform: translateY(12px);
 	transition:
-		opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-		transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+		opacity 0.5s var(--ease-out),
+		transform 0.5s var(--ease-out);
 	transition-delay: var(--reveal-delay);
 }
 
@@ -26,16 +31,36 @@
 	transform: translateY(0);
 }
 
-/* Interactive polish */
+/* Microinteraction utilities */
 @layer utilities {
+	.hover-lift {
+		transition:
+			transform var(--dur-short) var(--ease-out),
+			box-shadow var(--dur-short) var(--ease-out);
+	}
+	.hover-lift:hover {
+		transform: translateY(-3px);
+		box-shadow: var(--shadow-lifted);
+	}
+	.hover-lift:active {
+		transform: translateY(0);
+		transition-duration: 80ms;
+	}
+
+	.press {
+		transition: transform 100ms var(--ease-out);
+	}
+	.press:active {
+		transform: translateY(1px);
+	}
+
+	/* Legacy (search page compat) */
 	.interactive-lift {
 		@apply transition-all duration-300 ease-smooth;
 	}
-
 	.interactive-lift:hover {
 		@apply -translate-y-0.5 shadow-lg;
 	}
-
 	.interactive-press {
 		@apply transition-transform duration-150 ease-smooth active:scale-[0.98];
 	}
@@ -49,15 +74,14 @@
 		transition: none;
 	}
 
-	.animate-fade-in-up,
-	.animate-fade-in,
-	.animate-soft-pulse,
-	.animate-gentle-float {
-		animation: none !important;
-	}
-
+	.hover-lift:hover,
 	.interactive-lift:hover {
 		transform: none;
+	}
+
+	.animate-fade-in-up,
+	.animate-fade-in {
+		animation: none !important;
 	}
 }
 

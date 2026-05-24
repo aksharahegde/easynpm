@@ -1,54 +1,40 @@
-<footer class="border-t border-surface-border bg-surface-container-low py-stack-lg dark:bg-gray-900 dark:border-gray-700">
-	<div
-		class="mx-auto flex max-w-container-max flex-col items-center justify-between gap-stack-md px-margin-mobile md:flex-row md:px-gutter"
-	>
-		<div class="flex flex-col items-center gap-2 md:items-start">
-			<span class="font-headline-lg text-headline-lg font-bold text-primary">EasyNPM</span>
-			<p class="font-body-sm text-body-sm text-slate-muted dark:text-gray-400">
-				© {new Date().getFullYear()}
+<footer class="border-t border-rule bg-paper-2 px-5 py-16 md:px-6">
+	<div class="mx-auto" style="max-width: var(--page-max)">
+		<p
+			class="font-display text-2xl font-bold tracking-tight text-ink md:text-3xl"
+			style="max-width: 28ch"
+		>
+			The fastest way to find your next dependency.
+		</p>
+		<div
+			class="mt-8 flex flex-col items-start justify-between gap-4 border-t border-rule pt-4 md:flex-row md:items-baseline"
+		>
+			<span class="font-display text-base font-bold text-ink">EasyNPM</span>
+			<div class="flex flex-wrap items-baseline gap-4">
 				<a
-					href="https://akshara.dev"
+					href="https://github.com/aksharahegde/easynpm#readme"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="transition-colors hover:text-primary hover:underline"
+					class="text-sm text-muted transition-colors duration-[var(--dur-short)] hover:text-ink"
+					>Docs</a
 				>
-					Akshara Hegde
-				</a>. Built for performance.
-			</p>
-		</div>
-		<div class="flex flex-wrap justify-center gap-stack-md">
-			<a
-				href="https://github.com/aksharahegde/easynpm#readme"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="font-body-sm text-body-sm text-slate-muted transition-all duration-300 ease-smooth hover:text-primary hover:underline dark:text-gray-400"
-			>
-				Documentation
-			</a>
-			<a
-				href="https://github.com/aksharahegde/easynpm"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="font-body-sm text-body-sm text-slate-muted transition-all duration-300 ease-smooth hover:text-primary hover:underline dark:text-gray-400"
-			>
-				GitHub
-			</a>
-			<a
-				href="https://github.com/aksharahegde/easynpm/issues"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="font-body-sm text-body-sm text-slate-muted transition-all duration-300 ease-smooth hover:text-primary hover:underline dark:text-gray-400"
-			>
-				Status
-			</a>
-			<a
-				href="https://github.com/aksharahegde/easynpm"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="font-body-sm text-body-sm text-slate-muted transition-all duration-300 ease-smooth hover:text-primary hover:underline dark:text-gray-400"
-			>
-				Privacy
-			</a>
+				<a
+					href="https://github.com/aksharahegde/easynpm"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-sm text-muted transition-colors duration-[var(--dur-short)] hover:text-ink"
+					>GitHub</a
+				>
+				<span class="text-sm text-neutral">
+					© {new Date().getFullYear()}
+					<a
+						href="https://akshara.dev"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="transition-colors hover:text-accent">Akshara Hegde</a
+					>
+				</span>
+			</div>
 		</div>
 	</div>
 </footer>
