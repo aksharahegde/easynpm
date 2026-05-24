@@ -98,8 +98,9 @@
 	divClass="package-details-drawer-inner flex h-full flex-col overflow-hidden border-l border-surface-border bg-surface-container-lowest p-0 dark:border-gray-700 dark:bg-gray-800"
 	class="!fixed top-16 bottom-0 right-0 z-[210] flex w-full max-w-full flex-col overflow-hidden sm:!w-[min(100%,42rem)] lg:!w-[min(800px,55vw)]"
 >
+	<div class="flex min-h-0 flex-1 flex-col overflow-y-auto md:overflow-hidden">
 	<header
-		class="sticky top-0 z-10 shrink-0 border-b border-surface-border bg-surface-container-lowest px-4 py-4 dark:border-gray-700 dark:bg-gray-800"
+		class="shrink-0 border-b border-surface-border bg-surface-container-lowest px-4 py-4 dark:border-gray-700 dark:bg-gray-800 md:shrink-0"
 	>
 		<div class="flex items-start justify-between gap-3">
 			<div class="min-w-0 flex-1">
@@ -260,7 +261,7 @@
 		</div>
 	</header>
 
-	<div class="flex-1 overflow-y-auto px-4 pb-6">
+	<div class="px-4 pb-6 md:min-h-0 md:flex-1 md:overflow-y-auto">
 		{#if loading}
 			<div class="flex flex-col gap-4 py-6">
 				<div class="flex justify-center">
@@ -313,5 +314,6 @@
 				</p>
 			{/if}
 		{/if}
+	</div>
 	</div>
 </Drawer>
