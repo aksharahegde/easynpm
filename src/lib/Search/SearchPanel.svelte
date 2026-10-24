@@ -1,13 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import type { Payload, SearchResult } from '#lib/types/Results.ts';
-	import {
-		Accordion,
-		AccordionItem,
-		Button,
-		Label,
-		Range
-	} from 'flowbite-svelte';
+	import { Accordion, AccordionItem, Button, Label, Range } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	import SearchResultList from './SearchResult.svelte';
 
@@ -160,9 +154,7 @@
 					{/snippet}
 					<div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
 						<div class="text-left">
-							<Label class="text-slate-text dark:text-gray-200"
-								>Quality [{payload.quality}%]</Label
-							>
+							<Label class="text-slate-text dark:text-gray-200">Quality [{payload.quality}%]</Label>
 							<Range id="quality" min="0" max="100" bind:value={payload.quality} />
 						</div>
 						<div class="text-left">
@@ -212,7 +204,9 @@
 		>
 			<span class="material-symbols-outlined text-error">search_off</span>
 			<div>
-				<p class="font-body-md text-body-md font-semibold text-on-error-container dark:text-red-200">
+				<p
+					class="font-body-md text-body-md font-semibold text-on-error-container dark:text-red-200"
+				>
 					No results found for "{payload.keyword}"
 				</p>
 				<p class="mt-1 font-body-sm text-body-sm text-slate-muted dark:text-gray-400">
