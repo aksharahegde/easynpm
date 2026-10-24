@@ -191,7 +191,7 @@
 
 	{#if loading}
 		<div class="mt-stack-md flex flex-col gap-gutter" aria-busy="true" aria-label="Loading results">
-			{#each Array(4) as _}
+			{#each [0, 1, 2, 3] as i (i)}
 				<div
 					class="animate-pulse rounded-xl border border-surface-border bg-surface-container-lowest p-stack-md dark:border-gray-700 dark:bg-gray-800"
 				>

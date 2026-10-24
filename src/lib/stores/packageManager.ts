@@ -15,7 +15,7 @@ function readStored(): PackageManager {
 }
 
 function createPackageManagerStore() {
-	const { subscribe, set, update } = writable<PackageManager>(readStored());
+	const { subscribe, set } = writable<PackageManager>(readStored());
 
 	return {
 		subscribe,

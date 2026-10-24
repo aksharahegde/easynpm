@@ -271,7 +271,7 @@
 					Loading README and versions…
 				</p>
 				<div class="space-y-3">
-					{#each Array(4) as _}
+					{#each [0, 1, 2, 3] as i (i)}
 						<div class="h-4 animate-pulse rounded bg-surface-container dark:bg-gray-700"></div>
 					{/each}
 				</div>
