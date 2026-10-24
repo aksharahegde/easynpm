@@ -7,12 +7,14 @@
 
 	let { row }: Props = $props();
 
-	const linkItems = $derived([
-		{ key: 'homepage', label: 'Homepage', href: row.links?.homepage },
-		{ key: 'repository', label: 'Repository', href: row.links?.repository },
-		{ key: 'bugs', label: 'Bugs', href: row.links?.bugs },
-		{ key: 'npm', label: 'NPM', href: row.links?.npm }
-	].filter((item) => item.href));
+	const linkItems = $derived(
+		[
+			{ key: 'homepage', label: 'Homepage', href: row.links?.homepage },
+			{ key: 'repository', label: 'Repository', href: row.links?.repository },
+			{ key: 'bugs', label: 'Bugs', href: row.links?.bugs },
+			{ key: 'npm', label: 'NPM', href: row.links?.npm }
+		].filter((item) => item.href)
+	);
 </script>
 
 {#if linkItems.length}

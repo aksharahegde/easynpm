@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	
-
 	interface Props {
 		/** Stagger delay in ms before the reveal transition starts */
 		delay?: number;
@@ -11,7 +9,6 @@
 	}
 
 	let { delay = 0, class: className = '', children }: Props = $props();
-	
 
 	let el: HTMLElement | undefined = $state();
 	let visible = $state(false);
