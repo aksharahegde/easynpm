@@ -2,7 +2,7 @@
 	import { bagStore } from '#lib/stores/bag.ts';
 	import { notifications } from '#lib/stores/notifications.ts';
 	import CopyToClipboard from './CopyToClipboard.svelte';
-import { mount, unmount } from "svelte";
+	import { mount, unmount } from 'svelte';
 
 	const { bag } = bagStore;
 
@@ -10,15 +10,17 @@ import { mount, unmount } from "svelte";
 		const packages = $bag.map((item) => `${item.name}@${item.version}`).join(' ');
 		const val: string = `${manager} ${packages}`;
 		const app = mount(CopyToClipboard, {
-        			target: document.getElementById('clipboard')!,
-        			props: { val }
-        		});
+			target: document.getElementById('clipboard')!,
+			props: { val }
+		});
 		unmount(app);
 		notifications.success('Copied to clipboard', 1000);
 	};
 </script>
 
-<div class="flex justify-between px-4 py-2 text-sm font-semibold text-on-surface dark:text-gray-100">
+<div
+	class="flex justify-between px-4 py-2 text-sm font-semibold text-on-surface dark:text-gray-100"
+>
 	<span>Bag</span>
 	{#if $bag.length}
 		<button

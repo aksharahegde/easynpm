@@ -1,8 +1,11 @@
 <script lang="ts">
 	import type { Package } from '#lib/types/Results.ts';
 	import { packageManager } from '#lib/stores/packageManager.ts';
-	import { buildInstallCommand, copyInstallCommand, getPackageManagers } from '#lib/utils/installCommand.ts';
-
+	import {
+		buildInstallCommand,
+		copyInstallCommand,
+		getPackageManagers
+	} from '#lib/utils/installCommand.ts';
 
 	interface Props {
 		row: Package;

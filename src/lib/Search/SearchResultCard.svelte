@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import type { Package, SearchObject } from '#lib/types/Results.ts';
 	import { formatDistance } from 'date-fns';
 	import { packageManager } from '#lib/stores/packageManager.ts';
@@ -9,11 +8,7 @@
 		copyText,
 		getPackageManagers
 	} from '#lib/utils/installCommand.ts';
-	import {
-		formatCount,
-		formatScorePercent,
-		parseRepositoryUrl
-	} from '#lib/utils/packageStats.ts';
+	import { formatCount, formatScorePercent, parseRepositoryUrl } from '#lib/utils/packageStats.ts';
 	import AddToBag from '#lib/Shared/AddToBag.svelte';
 
 	interface Props {
@@ -34,9 +29,9 @@
 	let weeklyDownloads = $derived(formatCount(item.downloads?.weekly));
 	let monthlyDownloads = $derived(formatCount(item.downloads?.monthly));
 	let dependentsCount = $derived(formatCount(item.dependents));
-	let updatedLabel = $derived(item.updated
-		? formatDistance(new Date(item.updated), new Date(), { addSuffix: true })
-		: null);
+	let updatedLabel = $derived(
+		item.updated ? formatDistance(new Date(item.updated), new Date(), { addSuffix: true }) : null
+	);
 	let qualityPercent = $derived(formatScorePercent(item.score?.detail?.quality));
 	let popularityPercent = $derived(formatScorePercent(item.score?.detail?.popularity));
 	let maintenancePercent = $derived(formatScorePercent(item.score?.detail?.maintenance));
@@ -188,7 +183,10 @@
 			data-testid="search-copy-install"
 			class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-muted transition-colors hover:text-primary"
 			aria-label="Copy install command"
-			onclick={(e) => { e.stopPropagation(); copyPrimary(); }}
+			onclick={(e) => {
+				e.stopPropagation();
+				copyPrimary();
+			}}
 		>
 			<span class="material-symbols-outlined text-[18px]">content_copy</span>
 		</button>
@@ -265,7 +263,10 @@
 				class="interactive-press inline-flex items-center justify-center rounded-md border border-surface-border p-1 text-slate-muted transition-colors hover:border-primary/30 hover:text-primary dark:border-gray-600 dark:text-gray-400"
 				aria-label="Copy package name"
 				title="Copy name"
-				onclick={(e) => { e.stopPropagation(); copyPackageName(); }}
+				onclick={(e) => {
+					e.stopPropagation();
+					copyPackageName();
+				}}
 			>
 				<span class="material-symbols-outlined text-[16px]">badge</span>
 			</button>
@@ -275,7 +276,10 @@
 				class="interactive-press inline-flex items-center justify-center rounded-md border border-surface-border p-1 text-slate-muted transition-colors hover:border-primary/30 hover:text-primary dark:border-gray-600 dark:text-gray-400"
 				aria-label="Copy package coordinate"
 				title="Copy name@version"
-				onclick={(e) => { e.stopPropagation(); copyCoordinate(); }}
+				onclick={(e) => {
+					e.stopPropagation();
+					copyCoordinate();
+				}}
 			>
 				<span class="material-symbols-outlined text-[16px]">tag</span>
 			</button>
@@ -291,7 +295,10 @@
 					manager
 						? 'bg-primary text-on-primary'
 						: 'text-secondary hover:text-primary dark:text-gray-400'}"
-					onclick={(e) => { e.stopPropagation(); handleManagerClick(manager); }}
+					onclick={(e) => {
+						e.stopPropagation();
+						handleManagerClick(manager);
+					}}
 				>
 					{manager}
 				</button>

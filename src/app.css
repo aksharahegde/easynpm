@@ -22,9 +22,9 @@
 	--color-primary-800: #5c1f00;
 	--color-primary-900: #370e00;
 	--color-primary: #a33900;
-	--color-surface-border: #E5E7EB;
+	--color-surface-border: #e5e7eb;
 	--color-slate-text: #111827;
-	--color-slate-muted: #6B7280;
+	--color-slate-muted: #6b7280;
 	--color-on-surface: #191c1d;
 	--color-surface: #f8f9fa;
 	--color-surface-container-lowest: #ffffff;
@@ -32,7 +32,7 @@
 	--color-surface-container: #edeeef;
 	--color-surface-container-high: #e7e8e9;
 	--color-surface-container-highest: #e1e3e4;
-	--color-code-bg: #F3F4F6;
+	--color-code-bg: #f3f4f6;
 	--color-primary-fixed: #ffdbce;
 	--color-primary-fixed-dim: #ffb599;
 	--color-on-primary-fixed-variant: #7f2b00;
@@ -72,7 +72,7 @@
 	--color-inverse-surface: #2e3132;
 	--color-inverse-on-surface: #f0f1f2;
 	--color-inverse-primary: #ffb599;
-	--color-accent-orange-hover: #C2410C;
+	--color-accent-orange-hover: #c2410c;
 
 	--font-headline-lg: 'Bricolage Grotesque', sans-serif;
 	--font-headline-xl: 'Bricolage Grotesque', sans-serif;
@@ -156,8 +156,12 @@
 	border-radius: 10px;
 }
 
-html { overflow-x: clip; }
-body { overflow-x: clip; }
+html {
+	overflow-x: clip;
+}
+body {
+	overflow-x: clip;
+}
 
 .material-symbols-outlined {
 	font-variation-settings:

@@ -26,9 +26,8 @@
 								<div
 									class="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-accent-soft"
 								>
-									<span
-										class="material-symbols-outlined text-accent"
-										style="font-size: 14px">check</span
+									<span class="material-symbols-outlined text-accent" style="font-size: 14px"
+										>check</span
 									>
 								</div>
 								<span class="text-sm font-medium text-ink">{item}</span>
@@ -41,9 +40,7 @@
 			<Reveal delay={120} class="min-w-0 flex-1">
 				<div class="relative">
 					<!-- Desktop screenshot -->
-					<figure
-						class="hover-lift overflow-hidden rounded-lg border border-rule shadow-lifted"
-					>
+					<figure class="hover-lift overflow-hidden rounded-lg border border-rule shadow-lifted">
 						<img
 							src="/advanced_filter_light.png"
 							alt="Advanced filtering with quality, popularity, and maintenance sliders alongside search results"

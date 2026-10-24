@@ -49,12 +49,8 @@
 						<div class="h-0.5 bg-accent"></div>
 						<div class="p-7">
 							<div class="flex items-center gap-3">
-								<div
-									class="flex h-9 w-9 items-center justify-center rounded bg-accent-soft"
-								>
-									<span class="material-symbols-outlined text-lg text-accent"
-										>{feature.icon}</span
-									>
+								<div class="flex h-9 w-9 items-center justify-center rounded bg-accent-soft">
+									<span class="material-symbols-outlined text-lg text-accent">{feature.icon}</span>
 								</div>
 								<h3 class="font-display text-lg font-bold tracking-tight text-ink">
 									{feature.title}
