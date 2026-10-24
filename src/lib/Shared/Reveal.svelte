@@ -1,14 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	/** Stagger delay in ms before the reveal transition starts */
-	export let delay = 0;
+	
 
-	let className = '';
-	export { className as class };
+	interface Props {
+		/** Stagger delay in ms before the reveal transition starts */
+		delay?: number;
+		class?: string;
+		children?: import('svelte').Snippet;
+	}
 
-	let el: HTMLElement;
-	let visible = false;
+	let { delay = 0, class: className = '', children }: Props = $props();
+	
+
+	let el: HTMLElement | undefined = $state();
+	let visible = $state(false);
 
 	onMount(() => {
 		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -26,6 +32,7 @@
 			{ threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
 		);
 
+		if (!el) return;
 		observer.observe(el);
 		return () => observer.disconnect();
 	});
@@ -36,5 +43,5 @@
 	class="reveal {visible ? 'reveal-visible' : ''} {className}"
 	style={delay ? `--reveal-delay: ${delay}ms` : undefined}
 >
-	<slot />
+	{@render children?.()}
 </div>

@@ -1,13 +1,17 @@
 <script lang="ts">
-	import type { Package } from '$lib/types/Results';
-	import { bagStore } from '$lib/stores/bag';
-	import { notifications } from '$lib/stores/notifications';
+	import type { Package } from '#lib/types/Results.ts';
+	import { bagStore } from '#lib/stores/bag.ts';
+	import { notifications } from '#lib/stores/notifications.ts';
 
-	export let row: Package;
-	export let compact = false;
-	export let iconOnly = false;
+	interface Props {
+		row: Package;
+		compact?: boolean;
+		iconOnly?: boolean;
+	}
 
-	$: showIconOnly = iconOnly || compact;
+	let { row, compact = false, iconOnly = false }: Props = $props();
+
+	let showIconOnly = $derived(iconOnly || compact);
 
 	const addToBag = () => {
 		bagStore.add(row);
@@ -20,7 +24,7 @@
 	class="interactive-press inline-flex items-center gap-1 rounded-md border border-primary text-primary transition-all duration-300 ease-smooth hover:bg-primary-fixed dark:hover:bg-primary/20 {showIconOnly
 		? 'px-2 py-1'
 		: 'rounded-lg px-3 py-2 font-label-caps text-label-caps'}"
-	on:click={addToBag}
+	onclick={addToBag}
 >
 	<span class="material-symbols-outlined {showIconOnly ? 'text-[16px]' : 'text-base'}"
 		>shopping_bag</span

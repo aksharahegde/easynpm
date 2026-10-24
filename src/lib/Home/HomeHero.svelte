@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { packageManager, type PackageManager } from '$lib/stores/packageManager';
+	import { packageManager, type PackageManager } from '#lib/stores/packageManager.ts';
 
-	let query = '';
+	let query = $state('');
 
 	const managers: PackageManager[] = ['npm', 'yarn', 'pnpm'];
 
@@ -64,7 +64,7 @@
 				data-testid="home-search-input"
 				type="text"
 				bind:value={query}
-				on:keydown={onKeyDown}
+				onkeydown={onKeyDown}
 				placeholder="Search for packages (e.g., react, lodash, tailwind)..."
 				class="w-full rounded-lg border border-rule bg-paper py-5 pl-14 pr-16 text-base text-ink shadow-whisper placeholder:text-neutral focus:border-accent focus:shadow-lifted focus:outline-none"
 				style="transition: border-color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out)"
@@ -87,7 +87,7 @@
 					{$packageManager === manager
 						? 'bg-ink text-paper shadow-whisper'
 						: 'border border-rule text-muted hover:bg-paper-3 hover:text-ink'}"
-					on:click={() => selectManager(manager)}
+					onclick={() => selectManager(manager)}
 				>
 					{manager}
 				</button>

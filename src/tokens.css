@@ -4,7 +4,7 @@
  * pre-emit critique: P5 H4 E4 S5 R5 V5
  */
 
-:root {
+@theme static {
   /* Paper — warm-tinted neutrals */
   --color-paper: oklch(97.5% 0.007 60);
   --color-paper-2: oklch(95% 0.009 55);

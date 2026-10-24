@@ -1,43 +1,48 @@
 <script lang="ts">
-	import type { Package, SearchObject } from '$lib/types/Results';
+
+	import type { Package, SearchObject } from '#lib/types/Results.ts';
 	import { formatDistance } from 'date-fns';
-	import { packageManager } from '$lib/stores/packageManager';
+	import { packageManager } from '#lib/stores/packageManager.ts';
 	import {
 		buildInstallCommand,
 		copyInstallCommand,
 		copyText,
 		getPackageManagers
-	} from '$lib/utils/installCommand';
+	} from '#lib/utils/installCommand.ts';
 	import {
 		formatCount,
 		formatScorePercent,
 		parseRepositoryUrl
-	} from '$lib/utils/packageStats';
-	import AddToBag from '$lib/Shared/AddToBag.svelte';
+	} from '#lib/utils/packageStats.ts';
+	import AddToBag from '#lib/Shared/AddToBag.svelte';
 
-	export let item: SearchObject;
-	export let onView: (pkg: Package) => void;
+	interface Props {
+		item: SearchObject;
+		onView: (pkg: Package) => void;
+	}
 
-	let isDevDependency = false;
+	let { item, onView }: Props = $props();
+
+	let isDevDependency = $state(false);
 
 	const managers = getPackageManagers();
 
-	$: pkg = item.package;
-	$: primaryCommand = buildInstallCommand(pkg, $packageManager, isDevDependency);
-	$: coordinate = `${pkg.name}@${pkg.version}`;
-	$: repositoryUrl = parseRepositoryUrl(pkg.links?.repository);
-	$: weeklyDownloads = formatCount(item.downloads?.weekly);
-	$: monthlyDownloads = formatCount(item.downloads?.monthly);
-	$: dependentsCount = formatCount(item.dependents);
-	$: updatedLabel = item.updated
+	let pkg = $derived(item.package);
+	let primaryCommand = $derived(buildInstallCommand(pkg, $packageManager, isDevDependency));
+	let coordinate = $derived(`${pkg.name}@${pkg.version}`);
+	let repositoryUrl = $derived(parseRepositoryUrl(pkg.links?.repository));
+	let weeklyDownloads = $derived(formatCount(item.downloads?.weekly));
+	let monthlyDownloads = $derived(formatCount(item.downloads?.monthly));
+	let dependentsCount = $derived(formatCount(item.dependents));
+	let updatedLabel = $derived(item.updated
 		? formatDistance(new Date(item.updated), new Date(), { addSuffix: true })
-		: null;
-	$: qualityPercent = formatScorePercent(item.score?.detail?.quality);
-	$: popularityPercent = formatScorePercent(item.score?.detail?.popularity);
-	$: maintenancePercent = formatScorePercent(item.score?.detail?.maintenance);
-	$: isInsecure = Boolean(item.flags?.insecure);
-	$: publisherName = pkg.publisher?.username;
-	$: displayKeywords = (pkg.keywords ?? []).slice(0, 3);
+		: null);
+	let qualityPercent = $derived(formatScorePercent(item.score?.detail?.quality));
+	let popularityPercent = $derived(formatScorePercent(item.score?.detail?.popularity));
+	let maintenancePercent = $derived(formatScorePercent(item.score?.detail?.maintenance));
+	let isInsecure = $derived(Boolean(item.flags?.insecure));
+	let publisherName = $derived(pkg.publisher?.username);
+	let displayKeywords = $derived((pkg.keywords ?? []).slice(0, 3));
 
 	function copyPrimary() {
 		copyInstallCommand(pkg, $packageManager, isDevDependency);
@@ -64,7 +69,7 @@
 	class="interactive-lift rounded-lg border border-surface-border bg-surface-container-lowest p-3 dark:border-gray-700 dark:bg-gray-800 md:p-4"
 >
 	<div class="flex items-start justify-between gap-2">
-		<button type="button" class="min-w-0 flex-1 text-left" on:click={() => onView(pkg)}>
+		<button type="button" class="min-w-0 flex-1 text-left" onclick={() => onView(pkg)}>
 			<span class="inline-flex flex-wrap items-center gap-x-2 gap-y-1">
 				<span class="font-code-snippet text-base font-bold text-slate-text dark:text-gray-100">
 					{pkg.name}
@@ -183,7 +188,7 @@
 			data-testid="search-copy-install"
 			class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-muted transition-colors hover:text-primary"
 			aria-label="Copy install command"
-			on:click|stopPropagation={copyPrimary}
+			onclick={(e) => { e.stopPropagation(); copyPrimary(); }}
 		>
 			<span class="material-symbols-outlined text-[18px]">content_copy</span>
 		</button>
@@ -196,7 +201,7 @@
 			type="button"
 			data-testid="search-view-package"
 			class="interactive-press inline-flex items-center gap-1 rounded-md border border-surface-border px-2 py-1 text-xs text-slate-text transition-colors hover:border-primary/30 hover:text-primary dark:border-gray-600 dark:text-gray-200"
-			on:click={() => onView(pkg)}
+			onclick={() => onView(pkg)}
 		>
 			<span class="material-symbols-outlined text-[16px]">visibility</span>
 			View
@@ -260,7 +265,7 @@
 				class="interactive-press inline-flex items-center justify-center rounded-md border border-surface-border p-1 text-slate-muted transition-colors hover:border-primary/30 hover:text-primary dark:border-gray-600 dark:text-gray-400"
 				aria-label="Copy package name"
 				title="Copy name"
-				on:click|stopPropagation={copyPackageName}
+				onclick={(e) => { e.stopPropagation(); copyPackageName(); }}
 			>
 				<span class="material-symbols-outlined text-[16px]">badge</span>
 			</button>
@@ -270,7 +275,7 @@
 				class="interactive-press inline-flex items-center justify-center rounded-md border border-surface-border p-1 text-slate-muted transition-colors hover:border-primary/30 hover:text-primary dark:border-gray-600 dark:text-gray-400"
 				aria-label="Copy package coordinate"
 				title="Copy name@version"
-				on:click|stopPropagation={copyCoordinate}
+				onclick={(e) => { e.stopPropagation(); copyCoordinate(); }}
 			>
 				<span class="material-symbols-outlined text-[16px]">tag</span>
 			</button>
@@ -286,7 +291,7 @@
 					manager
 						? 'bg-primary text-on-primary'
 						: 'text-secondary hover:text-primary dark:text-gray-400'}"
-					on:click|stopPropagation={() => handleManagerClick(manager)}
+					onclick={(e) => { e.stopPropagation(); handleManagerClick(manager); }}
 				>
 					{manager}
 				</button>

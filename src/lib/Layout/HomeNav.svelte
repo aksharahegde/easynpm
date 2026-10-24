@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { DarkMode } from 'flowbite-svelte';
-	import BagTrigger from '$lib/Shared/BagTrigger.svelte';
+	import BagTrigger from '#lib/Shared/BagTrigger.svelte';
 </script>
 
 <nav
@@ -23,7 +23,7 @@
 			<div class="hidden items-center gap-4 md:flex">
 				<a
 					href="/"
-					class="text-sm font-medium transition-colors duration-[var(--dur-short)] {$page.url
+					class="text-sm font-medium transition-colors duration-[var(--dur-short)] {page.url
 						.pathname === '/'
 						? 'text-accent'
 						: 'text-muted hover:text-ink'}"
@@ -32,7 +32,7 @@
 				</a>
 				<a
 					href="/search"
-					class="text-sm font-medium transition-colors duration-[var(--dur-short)] {$page.url
+					class="text-sm font-medium transition-colors duration-[var(--dur-short)] {page.url
 						.pathname === '/search'
 						? 'text-accent'
 						: 'text-muted hover:text-ink'}"

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Reveal from '$lib/Shared/Reveal.svelte';
+	import Reveal from '#lib/Shared/Reveal.svelte';
 </script>
 
 <section class="px-5 py-24 md:px-6">

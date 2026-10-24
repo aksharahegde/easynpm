@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	export let val: string;
+	interface Props {
+		val: string;
+	}
 
-	let textarea: any;
+	let { val = $bindable() }: Props = $props();
+
+	let textarea: any = $state();
 
 	onMount(() => {
 		textarea.select();
@@ -11,4 +15,4 @@
 	});
 </script>
 
-<textarea bind:value={val} bind:this={textarea} />
+<textarea bind:value={val} bind:this={textarea}></textarea>

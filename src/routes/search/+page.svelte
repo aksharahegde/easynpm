@@ -1,5 +1,5 @@
 <script>
-	import SearchPanel from '$lib/Search/SearchPanel.svelte';
+	import SearchPanel from '#lib/Search/SearchPanel.svelte';
 </script>
 
 <div

@@ -1,31 +1,38 @@
 <script lang="ts">
-	import type { SearchObject } from '$lib/types/Results';
+	
+	import type { SearchObject } from '#lib/types/Results.ts';
 	import { formatDistance } from 'date-fns';
 	import { Drawer, CloseButton, Spinner } from 'flowbite-svelte';
 	import { sineIn } from 'svelte/easing';
-	import { onMount, createEventDispatcher } from 'svelte';
-	import { packageManager } from '$lib/stores/packageManager';
+	import { onMount } from 'svelte';
+	import { packageManager } from '#lib/stores/packageManager.ts';
 	import {
 		buildInstallCommand,
 		copyInstallCommand,
 		getPackageManagers
-	} from '$lib/utils/installCommand';
-	import { formatCount, parseRepositoryUrl } from '$lib/utils/packageStats';
+	} from '#lib/utils/installCommand.ts';
+	import { formatCount, parseRepositoryUrl } from '#lib/utils/packageStats.ts';
 	import Markdown from './Markdown.svelte';
-	import Links from '$lib/Shared/Links.svelte';
-	import LastUpdated from '$lib/Shared/LastUpdated.svelte';
-	import AddToBag from '$lib/Shared/AddToBag.svelte';
+	import Links from '#lib/Shared/Links.svelte';
+	import LastUpdated from '#lib/Shared/LastUpdated.svelte';
+	import AddToBag from '#lib/Shared/AddToBag.svelte';
 
-	export let item: SearchObject;
+	interface Props {
+		item: SearchObject;
+		onclosed?: () => void;
+	}
 
-	let loading = false;
+	let { item, onclosed }: Props = $props();
+
+	let loading = $state(false);
 	let result: {
 		description?: string;
 		readme?: string;
 		distTags: { name: string; value: string }[];
-	};
-	let hidden = false;
-	let isDevDependency = false;
+	} | undefined = $state();
+	let open = $state(true);
+	let closedNotified = false;
+	let isDevDependency = $state(false);
 
 	const managers = getPackageManagers();
 	const transitionParamsRight = {
@@ -34,18 +41,18 @@
 		easing: sineIn
 	};
 
-	$: pkg = item.package;
-	$: primaryCommand = buildInstallCommand(pkg, $packageManager, isDevDependency);
-	$: repositoryUrl = parseRepositoryUrl(pkg.links?.repository);
-	$: weeklyDownloads = formatCount(item.downloads?.weekly);
-	$: monthlyDownloads = formatCount(item.downloads?.monthly);
-	$: dependentsCount = formatCount(item.dependents);
-	$: updatedLabel = item.updated
+	let pkg = $derived(item.package);
+	let primaryCommand = $derived(buildInstallCommand(pkg, $packageManager, isDevDependency));
+	let repositoryUrl = $derived(parseRepositoryUrl(pkg.links?.repository));
+	let weeklyDownloads = $derived(formatCount(item.downloads?.weekly));
+	let monthlyDownloads = $derived(formatCount(item.downloads?.monthly));
+	let dependentsCount = $derived(formatCount(item.dependents));
+	let updatedLabel = $derived(item.updated
 		? formatDistance(new Date(item.updated), new Date(), { addSuffix: true })
-		: null;
-	$: isInsecure = Boolean(item.flags?.insecure);
-	$: publisherName = pkg.publisher?.username;
-	$: description = result?.description ?? pkg.description;
+		: null);
+	let isInsecure = $derived(Boolean(item.flags?.insecure));
+	let publisherName = $derived(pkg.publisher?.username);
+	let description = $derived(result?.description ?? pkg.description);
 
 	onMount(() => {
 		fetchDetails();
@@ -67,12 +74,17 @@
 		loading = false;
 	}
 
-	const dispatch = createEventDispatcher();
-
+	
 	const drawerClosed = () => {
+		if (closedNotified) return;
+		closedNotified = true;
 		history.back();
-		dispatch('closed');
+		onclosed?.();
 	};
+
+	$effect(() => {
+		if (!open) drawerClosed();
+	});
 
 	function copyPrimary() {
 		copyInstallCommand(pkg, $packageManager, isDevDependency);
@@ -88,15 +100,13 @@
 
 <Drawer
 	placement="right"
-	width=""
-	transitionType="fly"
+	width="full"
 	transitionParams={transitionParamsRight}
-	bind:hidden
-	on:hide={drawerClosed}
+	bind:open
+	dismissable={false}
 	id="package-details-drawer"
 	data-testid="package-details-drawer"
-	divClass="package-details-drawer-inner flex h-full flex-col overflow-hidden border-l border-surface-border bg-surface-container-lowest p-0 dark:border-gray-700 dark:bg-gray-800"
-	class="!fixed top-16 bottom-0 right-0 z-[210] flex w-full max-w-full flex-col overflow-hidden sm:!w-[min(100%,42rem)] lg:!w-[min(800px,55vw)]"
+	class="package-details-drawer-inner fixed! top-16 right-0 bottom-0 z-[210] flex h-auto! w-full max-w-full flex-col overflow-hidden border-l border-surface-border bg-surface-container-lowest p-0 sm:w-[min(100%,42rem)]! lg:w-[min(800px,55vw)]! dark:border-gray-700 dark:bg-gray-800"
 >
 	<div class="flex min-h-0 flex-1 flex-col overflow-y-auto md:overflow-hidden">
 	<header
@@ -133,7 +143,7 @@
 			</div>
 			<CloseButton
 				data-testid="package-details-close"
-				on:click={() => (hidden = true)}
+				onclick={() => (open = false)}
 				class="shrink-0 text-slate-muted hover:text-primary dark:text-gray-400"
 			/>
 		</div>
@@ -188,7 +198,7 @@
 				data-testid="package-details-copy-install"
 				class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-muted transition-colors hover:text-primary"
 				aria-label="Copy install command"
-				on:click={copyPrimary}
+				onclick={copyPrimary}
 			>
 				<span class="material-symbols-outlined text-[20px]">content_copy</span>
 			</button>
@@ -252,7 +262,7 @@
 						manager
 							? 'bg-primary text-on-primary'
 							: 'text-secondary hover:text-primary dark:text-gray-400'}"
-						on:click={() => handleManagerClick(manager)}
+						onclick={() => handleManagerClick(manager)}
 					>
 						{manager}
 					</button>

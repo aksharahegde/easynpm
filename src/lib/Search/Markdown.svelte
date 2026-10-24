@@ -1,7 +1,11 @@
 <script lang="ts">
 	import SvelteMarkdown from 'svelte-markdown';
 
-	export let source = '';
+	interface Props {
+		source?: string;
+	}
+
+	let { source = '' }: Props = $props();
 </script>
 
 <article

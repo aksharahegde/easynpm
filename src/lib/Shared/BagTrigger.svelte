@@ -1,12 +1,15 @@
 <script lang="ts">
-	import { bagStore } from '$lib/stores/bag';
+	import { bagStore } from '#lib/stores/bag.ts';
 	import { Dropdown } from 'flowbite-svelte';
 	import BagPanel from './BagPanel.svelte';
 
-	export let triggerId = 'bag-trigger';
-	export let testId = 'nav-bag-open';
-	export let buttonClass =
-		'p-2 hover:bg-surface-container rounded-lg transition-all active:scale-95 duration-100 ease-in-out relative';
+	interface Props {
+		triggerId?: string;
+		testId?: string;
+		buttonClass?: string;
+	}
+
+	let { triggerId = 'bag-trigger', testId = 'nav-bag-open', buttonClass = 'p-2 hover:bg-surface-container rounded-lg transition-all active:scale-95 duration-100 ease-in-out relative' }: Props = $props();
 
 	const { bag } = bagStore;
 </script>
