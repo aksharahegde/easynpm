@@ -1,12 +1,16 @@
 <script lang="ts">
-	import type { Package } from '$lib/types/Results';
-	import { packageManager } from '$lib/stores/packageManager';
-	import { buildInstallCommand, copyInstallCommand, getPackageManagers } from '$lib/utils/installCommand';
+	import type { Package } from '#lib/types/Results.ts';
+	import { packageManager } from '#lib/stores/packageManager.ts';
+	import { buildInstallCommand, copyInstallCommand, getPackageManagers } from '#lib/utils/installCommand.ts';
 
-	export let row: Package;
-	export let compact = false;
 
-	export let isDevDependency = false;
+	interface Props {
+		row: Package;
+		compact?: boolean;
+		isDevDependency?: boolean;
+	}
+
+	let { row, compact = false, isDevDependency = $bindable(false) }: Props = $props();
 
 	const managers = getPackageManagers();
 
@@ -44,7 +48,7 @@
 				manager
 					? 'bg-primary text-on-primary'
 					: 'text-secondary hover:bg-surface-container dark:text-gray-400'}"
-				on:click={() => handleManagerClick(manager)}
+				onclick={() => handleManagerClick(manager)}
 			>
 				{manager}
 			</button>

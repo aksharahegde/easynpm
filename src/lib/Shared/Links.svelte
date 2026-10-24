@@ -1,14 +1,20 @@
 <script lang="ts">
-	import type { Package } from '$lib/types/Results';
+	import type { Package } from '#lib/types/Results.ts';
 
-	export let row: Package;
+	interface Props {
+		row: Package;
+	}
 
-	const linkItems = [
-		{ key: 'homepage', label: 'Homepage', href: row.links?.homepage },
-		{ key: 'repository', label: 'Repository', href: row.links?.repository },
-		{ key: 'bugs', label: 'Bugs', href: row.links?.bugs },
-		{ key: 'npm', label: 'NPM', href: row.links?.npm }
-	].filter((item) => item.href);
+	let { row }: Props = $props();
+
+	const linkItems = $derived(
+		[
+			{ key: 'homepage', label: 'Homepage', href: row.links?.homepage },
+			{ key: 'repository', label: 'Repository', href: row.links?.repository },
+			{ key: 'bugs', label: 'Bugs', href: row.links?.bugs },
+			{ key: 'npm', label: 'NPM', href: row.links?.npm }
+		].filter((item) => item.href)
+	);
 </script>
 
 {#if linkItems.length}

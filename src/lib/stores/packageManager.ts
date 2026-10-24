@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import { writable } from 'svelte/store';
 
 export type PackageManager = 'npm' | 'yarn' | 'pnpm';
@@ -15,7 +15,7 @@ function readStored(): PackageManager {
 }
 
 function createPackageManagerStore() {
-	const { subscribe, set, update } = writable<PackageManager>(readStored());
+	const { subscribe, set } = writable<PackageManager>(readStored());
 
 	return {
 		subscribe,

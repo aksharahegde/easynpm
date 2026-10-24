@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import type { Payload, SearchResult } from '$lib/types/Results';
+	import { page } from '$app/state';
+	import type { Payload, SearchResult } from '#lib/types/Results.ts';
 	import {
 		Accordion,
 		AccordionItem,
@@ -11,19 +11,19 @@
 	import { onMount } from 'svelte';
 	import SearchResultList from './SearchResult.svelte';
 
-	let showAdvancedFilters = false;
-	let appliedFilterCount = 0;
+	let showAdvancedFilters = $state(false);
+	let appliedFilterCount = $state(0);
 	let timer: ReturnType<typeof setTimeout> | undefined;
-	let loading = false;
-	let noResults = false;
-	let result: SearchResult | undefined;
-	let searchInputValue = '';
-	let payload: Payload = {
+	let loading = $state(false);
+	let noResults = $state(false);
+	let result: SearchResult | undefined = $state();
+	let searchInputValue = $state('');
+	let payload: Payload = $state({
 		keyword: '',
 		quality: 0,
 		popularity: 0,
 		maintenance: 0
-	};
+	});
 
 	const fetchSearchResults = (e: Event) => {
 		const target = e.target as HTMLInputElement;
@@ -43,7 +43,7 @@
 	};
 
 	onMount(() => {
-		const initialQuery = $page.url.searchParams.get('q');
+		const initialQuery = page.url.searchParams.get('q');
 		if (initialQuery) {
 			payload.keyword = initialQuery;
 			searchInputValue = initialQuery;
@@ -111,7 +111,7 @@
 				data-testid="search-input"
 				type="text"
 				bind:value={searchInputValue}
-				on:input={fetchSearchResults}
+				oninput={fetchSearchResults}
 				placeholder="Search for packages (e.g., react, lodash, tailwind)..."
 				class="w-full rounded-xl border border-surface-border bg-surface-container-lowest py-4 pl-14 pr-14 font-body-md text-body-md text-on-surface shadow-sm transition-all duration-300 ease-smooth focus:outline-none focus:ring-2 focus:ring-primary focus:shadow-md dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
 			/>
@@ -130,7 +130,7 @@
 			class="interactive-press relative flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-xl border border-surface-border bg-surface-container-lowest text-secondary transition-all duration-300 hover:border-primary/30 hover:text-primary dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400"
 			aria-label="Toggle advanced filters"
 			aria-expanded={showAdvancedFilters}
-			on:click={() => (showAdvancedFilters = !showAdvancedFilters)}
+			onclick={() => (showAdvancedFilters = !showAdvancedFilters)}
 		>
 			<span class="material-symbols-outlined">tune</span>
 			{#if appliedFilterCount > 0}
@@ -150,10 +150,14 @@
 			<Accordion>
 				<AccordionItem
 					open
-					paddingDefault="p-3"
-					defaultClass="flex w-full items-center justify-between rounded-lg border-0 text-left font-medium text-slate-text dark:text-gray-100"
+					classes={{
+						button:
+							'flex w-full items-center justify-between rounded-lg border-0 p-3 text-left font-medium text-slate-text dark:text-gray-100'
+					}}
 				>
-					<span slot="header" class="font-body-sm text-body-sm font-semibold">Advanced options</span>
+					{#snippet header()}
+						<span class="font-body-sm text-body-sm font-semibold">Advanced options</span>
+					{/snippet}
 					<div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
 						<div class="text-left">
 							<Label class="text-slate-text dark:text-gray-200"
@@ -175,11 +179,11 @@
 						</div>
 					</div>
 					<div class="mt-4 flex flex-wrap justify-end gap-stack-sm">
-						<Button color="dark" on:click={clearFilters} class="interactive-press">
+						<Button color="dark" onclick={clearFilters} class="interactive-press">
 							<span class="material-symbols-outlined mr-1 text-base">close</span>
 							Clear & Close
 						</Button>
-						<Button color="primary" on:click={fetchResults} class="interactive-press">
+						<Button color="primary" onclick={fetchResults} class="interactive-press">
 							<span class="material-symbols-outlined mr-1 text-base">check</span>
 							Apply Filters
 						</Button>
@@ -191,7 +195,7 @@
 
 	{#if loading}
 		<div class="mt-stack-md flex flex-col gap-gutter" aria-busy="true" aria-label="Loading results">
-			{#each Array(4) as _}
+			{#each [0, 1, 2, 3] as i (i)}
 				<div
 					class="animate-pulse rounded-xl border border-surface-border bg-surface-container-lowest p-stack-md dark:border-gray-700 dark:bg-gray-800"
 				>

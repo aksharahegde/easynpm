@@ -1,7 +1,8 @@
-import type { Package } from '$lib/types/Results';
-import { packageManagerCommands, type PackageManager } from '$lib/stores/packageManager';
-import { notifications } from '$lib/stores/notifications';
-import CopyToClipboard from '$lib/Shared/CopyToClipboard.svelte';
+import type { Package } from '#lib/types/Results.ts';
+import { packageManagerCommands, type PackageManager } from '#lib/stores/packageManager.ts';
+import { notifications } from '#lib/stores/notifications.ts';
+import CopyToClipboard from '#lib/Shared/CopyToClipboard.svelte';
+import { mount, unmount } from "svelte";
 
 const managerVerbs: Record<string, string> = {
 	...packageManagerCommands,
@@ -21,11 +22,11 @@ export function copyText(val: string, message?: string): void {
 	const target = document.getElementById('clipboard');
 	if (!target) return;
 
-	const app = new CopyToClipboard({
-		target,
-		props: { val }
-	});
-	app.$destroy();
+	const app = mount(CopyToClipboard, {
+    		target,
+    		props: { val }
+    	});
+	unmount(app);
 	notifications.success(message ?? `${val} copied to clipboard`, 1000);
 }
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { bagStore } from '$lib/stores/bag';
+	import { bagStore } from '#lib/stores/bag.ts';
 
 	const { bag } = bagStore;
 
@@ -13,7 +13,7 @@
 	data-testid="bag-fab-open"
 	class="group animate-gentle-float fixed bottom-8 right-8 z-40 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-on-primary shadow-lg transition-all duration-300 ease-smooth hover:scale-105 hover:bg-accent-orange-hover hover:shadow-xl active:scale-95"
 	aria-label="Open bag"
-	on:click={openBag}
+	onclick={openBag}
 >
 	<span class="material-symbols-outlined transition-transform duration-300 group-hover:rotate-6"
 		>shopping_bag</span

@@ -1,18 +1,19 @@
 <script lang="ts">
-	import { bagStore } from '$lib/stores/bag';
-	import { notifications } from '$lib/stores/notifications';
+	import { bagStore } from '#lib/stores/bag.ts';
+	import { notifications } from '#lib/stores/notifications.ts';
 	import CopyToClipboard from './CopyToClipboard.svelte';
+import { mount, unmount } from "svelte";
 
 	const { bag } = bagStore;
 
 	const copyCommand = (manager: string) => {
 		const packages = $bag.map((item) => `${item.name}@${item.version}`).join(' ');
 		const val: string = `${manager} ${packages}`;
-		const app = new CopyToClipboard({
-			target: document.getElementById('clipboard')!,
-			props: { val }
-		});
-		app.$destroy();
+		const app = mount(CopyToClipboard, {
+        			target: document.getElementById('clipboard')!,
+        			props: { val }
+        		});
+		unmount(app);
 		notifications.success('Copied to clipboard', 1000);
 	};
 </script>
@@ -24,7 +25,7 @@
 			type="button"
 			class="material-symbols-outlined text-base cursor-pointer text-secondary hover:text-error dark:text-gray-400"
 			aria-label="Clear bag"
-			on:click={() => bagStore.clear()}
+			onclick={() => bagStore.clear()}
 		>
 			delete
 		</button>
@@ -60,7 +61,7 @@
 		<button
 			type="button"
 			class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium border border-primary text-primary rounded hover:bg-primary-fixed transition-colors"
-			on:click={() => copyCommand('yarn add')}
+			onclick={() => copyCommand('yarn add')}
 		>
 			<span class="material-symbols-outlined text-base">content_copy</span>
 			Yarn
@@ -68,7 +69,7 @@
 		<button
 			type="button"
 			class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium border border-primary text-primary rounded hover:bg-primary-fixed transition-colors"
-			on:click={() => copyCommand('npm install')}
+			onclick={() => copyCommand('npm install')}
 		>
 			<span class="material-symbols-outlined text-base">content_copy</span>
 			NPM

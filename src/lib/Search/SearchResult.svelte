@@ -1,16 +1,20 @@
 <script lang="ts">
-	import type { Package, Payload, SearchObject, SearchResult } from '$lib/types/Results';
-	import Reveal from '$lib/Shared/Reveal.svelte';
+	import type { Package, Payload, SearchObject, SearchResult } from '#lib/types/Results.ts';
+	import Reveal from '#lib/Shared/Reveal.svelte';
 	import PackageDetails from './PackageDetails.svelte';
 	import SearchResultCard from './SearchResultCard.svelte';
-	import Toastr from '$lib/Shared/Toastr.svelte';
+	import Toastr from '#lib/Shared/Toastr.svelte';
 
-	export let payload: Payload;
-	export let result: SearchResult;
+	interface Props {
+		payload: Payload;
+		result: SearchResult;
+	}
 
-	let loading = false;
-	let selectedItem: SearchObject;
-	let isDetailsOpen = false;
+	let { payload, result = $bindable() }: Props = $props();
+
+	let loading = $state(false);
+	let selectedItem: SearchObject | undefined = $state();
+	let isDetailsOpen = $state(false);
 	let offset = 20;
 
 	const openPackageDetails = (row: Package) => {
@@ -49,10 +53,10 @@
 	};
 </script>
 
-<div id="clipboard" class="sr-only" aria-hidden="true" />
+<div id="clipboard" class="sr-only" aria-hidden="true"></div>
 
 {#if isDetailsOpen && selectedItem}
-	<PackageDetails item={selectedItem} on:closed={() => (isDetailsOpen = false)} />
+	<PackageDetails item={selectedItem} onclosed={() => (isDetailsOpen = false)} />
 {/if}
 
 <Toastr />
@@ -78,7 +82,7 @@
 			data-testid="search-load-more"
 			disabled={loading}
 			class="interactive-press mt-gutter w-full rounded-xl border border-surface-border bg-surface-container-low py-4 font-body-md text-body-md font-semibold text-primary transition-all duration-300 ease-smooth hover:bg-surface-container disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-			on:click={loadMore}
+			onclick={loadMore}
 		>
 			{loading ? 'Loading…' : 'View more'}
 		</button>

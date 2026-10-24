@@ -9,8 +9,10 @@
 
 <div class="fixed top-20 z-50 notifications">
 	{#each $notifications as notification (notification.id)}
-		<Toast transition={fly} position="top-right" class="fixed top-20 z-10 mb-4" open={true}>
-			<CheckCircleSolid size="lg" slot="icon" />
+		<Toast transition={fly} position="top-right" class="fixed top-20 z-10 mb-4">
+			{#snippet icon()}
+				<CheckCircleSolid size="lg" />
+			{/snippet}
 			<span class="dark:text-gray-300">{notification.message}</span>
 		</Toast>
 	{/each}

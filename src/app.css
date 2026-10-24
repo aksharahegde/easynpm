@@ -1,8 +1,160 @@
+@import 'tailwindcss';
 @import './tokens.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@plugin 'flowbite/plugin';
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@source '../node_modules/flowbite-svelte/dist';
+@source '../node_modules/flowbite-svelte-icons/dist';
+
+/* Theme tokens migrated from tailwind.config.js. Tokens that change in dark mode live in tokens.css. */
+@theme static {
+	--color-primary-50: #fff5f2;
+	--color-primary-100: #ffdbce;
+	--color-primary-200: #ffb599;
+	--color-primary-300: #ff8a5c;
+	--color-primary-400: #e85a1a;
+	--color-primary-500: #cc4900;
+	--color-primary-600: #a33900;
+	--color-primary-700: #7f2b00;
+	--color-primary-800: #5c1f00;
+	--color-primary-900: #370e00;
+	--color-primary: #a33900;
+	--color-surface-border: #E5E7EB;
+	--color-slate-text: #111827;
+	--color-slate-muted: #6B7280;
+	--color-on-surface: #191c1d;
+	--color-surface: #f8f9fa;
+	--color-surface-container-lowest: #ffffff;
+	--color-surface-container-low: #f3f4f5;
+	--color-surface-container: #edeeef;
+	--color-surface-container-high: #e7e8e9;
+	--color-surface-container-highest: #e1e3e4;
+	--color-code-bg: #F3F4F6;
+	--color-primary-fixed: #ffdbce;
+	--color-primary-fixed-dim: #ffb599;
+	--color-on-primary-fixed-variant: #7f2b00;
+	--color-on-primary-fixed: #370e00;
+	--color-on-primary: #ffffff;
+	--color-primary-container: #cc4900;
+	--color-on-primary-container: #fffbff;
+	--color-secondary: #575e70;
+	--color-on-secondary: #ffffff;
+	--color-secondary-container: #d9dff5;
+	--color-on-secondary-container: #5c6274;
+	--color-secondary-fixed: #dce2f7;
+	--color-secondary-fixed-dim: #c0c6db;
+	--color-on-secondary-fixed: #141b2b;
+	--color-on-secondary-fixed-variant: #404758;
+	--color-outline: #8e7166;
+	--color-outline-variant: #e2bfb2;
+	--color-error: #ba1a1a;
+	--color-on-error: #ffffff;
+	--color-error-container: #ffdad6;
+	--color-on-error-container: #93000a;
+	--color-tertiary: #525c6d;
+	--color-on-tertiary: #ffffff;
+	--color-tertiary-container: #6b7587;
+	--color-on-tertiary-container: #fefcff;
+	--color-tertiary-fixed: #d9e3f7;
+	--color-tertiary-fixed-dim: #bdc7db;
+	--color-on-tertiary-fixed: #121c2a;
+	--color-on-tertiary-fixed-variant: #3d4757;
+	--color-background: #f8f9fa;
+	--color-on-background: #191c1d;
+	--color-surface-variant: #e1e3e4;
+	--color-on-surface-variant: #5a4138;
+	--color-surface-dim: #d9dadb;
+	--color-surface-bright: #f8f9fa;
+	--color-surface-tint: #a73a00;
+	--color-inverse-surface: #2e3132;
+	--color-inverse-on-surface: #f0f1f2;
+	--color-inverse-primary: #ffb599;
+	--color-accent-orange-hover: #C2410C;
+
+	--font-headline-lg: 'Bricolage Grotesque', sans-serif;
+	--font-headline-xl: 'Bricolage Grotesque', sans-serif;
+	--font-headline-lg-mobile: 'Bricolage Grotesque', sans-serif;
+	--font-body-md: Satoshi, sans-serif;
+	--font-body-sm: Satoshi, sans-serif;
+	--font-label-caps: Satoshi, sans-serif;
+	--font-code-snippet: 'JetBrains Mono', monospace;
+
+	--text-display--line-height: 1.08;
+	--text-display--letter-spacing: -0.03em;
+	--text-display--font-weight: 800;
+	--text-headline-lg: 32px;
+	--text-headline-lg--line-height: 40px;
+	--text-headline-lg--letter-spacing: -0.01em;
+	--text-headline-lg--font-weight: 700;
+	--text-code-snippet: 14px;
+	--text-code-snippet--line-height: 20px;
+	--text-code-snippet--font-weight: 500;
+	--text-headline-lg-mobile: 28px;
+	--text-headline-lg-mobile--line-height: 36px;
+	--text-headline-lg-mobile--font-weight: 700;
+	--text-body-md: 16px;
+	--text-body-md--line-height: 24px;
+	--text-body-md--font-weight: 400;
+	--text-label-caps: 12px;
+	--text-label-caps--line-height: 16px;
+	--text-label-caps--letter-spacing: 0.05em;
+	--text-label-caps--font-weight: 600;
+	--text-body-sm: 14px;
+	--text-body-sm--line-height: 20px;
+	--text-body-sm--font-weight: 400;
+	--text-headline-xl: 48px;
+	--text-headline-xl--line-height: 56px;
+	--text-headline-xl--letter-spacing: -0.02em;
+	--text-headline-xl--font-weight: 800;
+
+	--spacing-container-max: 1280px;
+	--spacing-stack-lg: 48px;
+	--spacing-margin-mobile: 16px;
+	--spacing-gutter: 24px;
+	--spacing-section-gap: 96px;
+	--spacing-stack-sm: 8px;
+	--spacing-stack-md: 16px;
+
+	--container-container-max: 1280px;
+	--container-page: var(--page-max);
+
+	--radius-sm: 6px;
+	--radius-lg: 14px;
+	--radius-xl: 20px;
+	--radius-pill: 999px;
+	--radius-full: 9999px;
+
+	--animate-fade-in-up: fade-in-up 0.5s var(--ease-out) both;
+	--animate-fade-in: fade-in 0.4s var(--ease-out) both;
+	--ease-smooth: var(--ease-out);
+
+	@keyframes fade-in-up {
+		0% {
+			opacity: 0;
+			transform: translateY(12px);
+		}
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	@keyframes fade-in {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+}
+
+/* v3 default: bare `rounded` used the theme DEFAULT radius */
+@utility rounded {
+	border-radius: 10px;
+}
 
 html { overflow-x: clip; }
 body { overflow-x: clip; }

@@ -1,8 +1,8 @@
 <script>
-	import HomeCta from '$lib/Home/HomeCta.svelte';
-	import HomeFeatures from '$lib/Home/HomeFeatures.svelte';
-	import HomeHero from '$lib/Home/HomeHero.svelte';
-	import HomeProductPreview from '$lib/Home/HomeProductPreview.svelte';
+	import HomeCta from '#lib/Home/HomeCta.svelte';
+	import HomeFeatures from '#lib/Home/HomeFeatures.svelte';
+	import HomeHero from '#lib/Home/HomeHero.svelte';
+	import HomeProductPreview from '#lib/Home/HomeProductPreview.svelte';
 </script>
 
 <HomeHero />
